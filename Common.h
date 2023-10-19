@@ -13,9 +13,10 @@ enum GALNavMsgType
 
 struct Sattelite
 {
-	char Valid, Number[2];           // Пригодность измерений данного спутника,
-									 // Идентификатор спутника
-    enum GALNavMsgType GALNavMsgType;
+	char Valid,                      // Пригодность измерений данного спутника,
+		 Number[2];                  // Идентификатор спутника
+
+	enum GALNavMsgType GALNavMsgType;
 	double toc,                      // Время эфемерид UNIX, с
 		   a0, a1, a2,               // Данные эфемерид GPS/Galileo/BeiDou
 		   Crs, dn, M0,

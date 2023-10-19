@@ -45,7 +45,22 @@ int ReadSP3Ephemeris(char *EphemerisFileName, struct SP3 *SP3)
 	sscanf(CurrentString, "%*c%*c%*d%*f%f", &SP3->Step);
 	fgets(CurrentString, BYTES_OF_STRING, EphemerisFile);
 	sscanf(CurrentString, "%*c%hhd", &SP3->NOfSattelites);
-	for(i = 0; i < 10; i++)
+	for(i = 0; i < 85; i += 17)
+	{
+		fgets(CurrentString, BYTES_OF_STRING, EphemerisFile);
+	}
+
+	while(i++ < SP3->NOfSattelites)
+	{
+		fgets(CurrentString, BYTES_OF_STRING, EphemerisFile);
+	}
+
+    	for(i = 0; i < 85; i += 17)
+	{
+		fgets(CurrentString, BYTES_OF_STRING, EphemerisFile);
+	}
+
+	while(i++ < SP3->NOfSattelites)
 	{
 		fgets(CurrentString, BYTES_OF_STRING, EphemerisFile);
 	}
@@ -58,7 +73,7 @@ int ReadSP3Ephemeris(char *EphemerisFileName, struct SP3 *SP3)
 
 	while(!feof(EphemerisFile))
 	{
-		fgets(CurrentString, BYTES_OF_STRING, EphemerisFile);
+	   	fgets(CurrentString, BYTES_OF_STRING, EphemerisFile);
 		sscanf(CurrentString, "%*c%hd%hhd%hhd%hhd%hhd%f",
 			   &SP3->Year, &SP3->Month, &SP3->Day,
 			   &SP3->Hours, &SP3->Minutes, &SP3->Seconds);

@@ -3,7 +3,7 @@
         <ProjectGuid>{8524381E-97B8-4FA6-A738-BF6A2CB0D1AE}</ProjectGuid>
         <ProjectVersion>19.5</ProjectVersion>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <AppType>Console</AppType>
         <FrameworkType>None</FrameworkType>
         <TargetedPlatforms>3</TargetedPlatforms>

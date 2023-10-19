@@ -1489,7 +1489,6 @@ int ReadRINEXObs(char *ObservFileName, struct RINEXObs *RINEXObs)
 								IndexOfObservType++;
 							}
 
-
 							if(CurrentString[k] == '\n' &&
 							   IndexOfObservType < RINEXObs->NOfTypesOfObserv[IndexOfSystemType])
 							{

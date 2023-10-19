@@ -796,24 +796,24 @@ int ReadSpecSatData(char *SpecSatFileName, struct RINEXObs *RINEXObs)
 														   Hours, Minutes, Seconds))
 			{
 				j = 0;
-				Pch = strpbrk(CurrentString, "GRES");
-				while(Pch && j < 20)
+				Pch = strpbrk(CurrentString, "GRESC");
+				while(Pch)
 				{
 					Sattelites[j][0] = Pch[0];
-					Pch = strpbrk(Pch + 1, "GRES");
+					Pch = strpbrk(Pch + 1, "GRESC");
 				  	j++;
 				}
 				j = 0;
-				Pch = strtok(CurrentString, "GRES");
-				Pch = strtok(NULL, " GRES");
+				Pch = strtok(CurrentString, "GRESC");
+				Pch = strtok(NULL, " GRESC");
 				while(Pch)
 				{
 					Sattelites[j][1] = atoi(Pch);
-					Pch = strtok(NULL, " GRES");
+					Pch = strtok(NULL, " GRESC");
 					j++;
 				}
 
-                for(k = 0; k < RINEXObs->Epochs[i].NOfSattelites; k++)
+				for(k = 0; k < RINEXObs->Epochs[i].NOfSattelites; k++)
 				{
 					Find = 0;
 					for(l = 0; l < j; l++)
@@ -831,7 +831,7 @@ int ReadSpecSatData(char *SpecSatFileName, struct RINEXObs *RINEXObs)
 						RINEXObs->Epochs[i].Sattelites[k][1] = 0;
 					}
 				}
-                break;
+				break;
 			}
 		}
 	}

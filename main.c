@@ -1,7 +1,7 @@
 /*
 	Программа решения навигационной задачи ГНСС
 	Navi
-	© Затолокин Д.А., 2015-2021
+	© Затолокин Д.А., 2015-2023
 */
 #include <stdio.h>
 #include <conio.h>
@@ -25,33 +25,6 @@
 #include "NeQuickG.h"
 #include "Ionex.h"
 #include "Troposphere.h"
-
-//#ifndef MAXPATH
-//#define MAXPATH 260
-//#endif
-
-//#define DEBUG
-
-//void print_dir(char* dir_name)
-//{
-//  /* Open the directory and check for success */
-//  DIR* dir = opendir(dir_name);
-//  struct dirent* ent;
-//
-//  if(!dir)
-//	return;
-//
-//  /* Navigate in the directory stream */
-//  while(ent = readdir(dir))
-//  {
-//	/* print the name of the entry */
-//	if(strcmp(ent->d_name, ".") && strcmp(ent->d_name, "..") && strstr(ent->d_name, ".dat"))
-//	{
-//		printf("%s\n", ent->d_name);
-//	}
-//  }
-//  closedir(dir);
-//}
 
 int main(int argc, char **argv)
 {
@@ -115,13 +88,6 @@ int main(int argc, char **argv)
 	DIR* dir;
 	struct dirent* ent;
 
-//	short Year;
-//	char Month;
-//	char Day;
-//	char Hours;
-//	char Minutes;
-//	float Seconds;
-
 	RINEXObs = (struct RINEXObs*)calloc(1, SizeOfRINEXObs);
 	RINEXNav = (struct RINEXNav*)calloc(1, SizeOfRINEXNav);
 	SP3 = (struct SP3*)calloc(1, SizeOfSP3);
@@ -132,17 +98,6 @@ int main(int argc, char **argv)
 	{
 		WriteSettings("navi.ini", &Settings);
 	}
-
-//	tau = DateTimeToUNIXTime(2020, 01, 07,
-//						  01, 59, 44.0);
-//	printf("\n%lf\n", tau);
-//	getch();
-//
-//	UNIXTimeToDateTime(tau, &Year, &Month, &Day,
-//						&Hours, &Minutes, &Seconds);
-//	printf("\n%hd %hhd %hhd %hhd %hhd %f\n", Year, Month, Day,
-//						Hours, Minutes, Seconds);
-//	getch();
 
 #ifdef DEBUG
 	printf("RINEXObsFilename=%s\n", Settings.RINEXObsFile);
@@ -200,9 +155,9 @@ int main(int argc, char **argv)
 			}
 		}
 	}
-    RINEXObs->x = 1.0;
-	RINEXObs->y = 1.0;
-	RINEXObs->z = 1.0;
+	//RINEXObs->x = 0.0;
+	//RINEXObs->y = 0.0;
+    //RINEXObs->z = 0.0;
 	if(!ReadRINEXObsHeader(Settings.RINEXObsFile, RINEXObs))
 	{
         printf("Unable to open observation file %s", Settings.RINEXObsFile);
@@ -453,11 +408,6 @@ int main(int argc, char **argv)
 			getch();
 		}
 		return 1;
-	}
-
-    if(RINEXObs->x == 1 && RINEXObs->y == 1 && RINEXObs->z == 1)
-	{
-		Settings.RMSThreshold = 0.0;
 	}
 
 	Settings.ExcludeSattelites = (char**)calloc(1, SizeOfCharPtr);
@@ -1054,6 +1004,17 @@ int main(int argc, char **argv)
 				IndexOfC2 = RINEXObs->IndexOfC7I[j];
 			}
 
+			if(RINEXObs->Epochs[RINEXObs->CurrentEpoch].Sattelites[i][0] == '0' &&
+			   RINEXObs->Epochs[RINEXObs->CurrentEpoch].Sattelites[i][1] == 0)
+			{
+				IndexOfC1 = -1;
+				IndexOfC2 = -1;
+				IndexOfP1 = -1;
+				IndexOfP2 = -1;
+				IndexOfC5 = -1;
+				IndexOfC7 = -1;
+			}
+
 			if(strstr(Settings.FrequencyMode, "SC1"))
 			{
 				if(IndexOfC1 >= 0)
@@ -1453,7 +1414,6 @@ int main(int argc, char **argv)
 					}
 				}
 			}
-
 			//printf("\n  %c%d %.3lf %.3lf %.3lf %.3lf %.3lf\n", RINEXObs->Epochs[RINEXObs->CurrentEpoch].Sattelites[i][0], RINEXObs->Epochs[RINEXObs->CurrentEpoch].Sattelites[i][1], Sattelites[i].P, Sattelites[i].P1, Sattelites[i].P2, Sattelites[i].PC5, Sattelites[i].PC7);
 			if(Sattelites[i].Valid)
 			{
@@ -1462,7 +1422,7 @@ int main(int argc, char **argv)
 			}
 		}
 
-		// Если спутник есть в таблице исключённых спутников, его как бы "не существует"
+		// Если спутник есть в таблице исключённых спутников или его "затёрли" идентификатором "0", если он не в списке SpecSatFile, его как бы "не существует"
 		for(i = 0; i < RINEXObs->Epochs[RINEXObs->CurrentEpoch].NOfSattelites; i++)
 		{
 			for(j = 0; j < Settings.NOfExcludeSattelites; j++)
@@ -1478,7 +1438,7 @@ int main(int argc, char **argv)
 
 		if(CurSolution[RINEXObs->CurrentEpoch].NOfValidSattelites >= SattelitesThreshold)
 		{
-             CurSolution[RINEXObs->CurrentEpoch].NOfValidSattelites = 0; // А может у нас не наберётся в nav-файле столько спутников
+			CurSolution[RINEXObs->CurrentEpoch].NOfValidSattelites = 0; // А может у нас не наберётся в nav-файле столько спутников
 			if(Ephemeris == BOARD)
 			{
 				FindRINEXEphemeris(&Settings, RINEXObs, RINEXNav,
@@ -1491,8 +1451,8 @@ int main(int argc, char **argv)
 				                 Sattelites, InterpolationPoints);
 			}
 			SattelitesInitialRange(&RINEXObs->Epochs[RINEXObs->CurrentEpoch], Sattelites,
-						 Settings.FrequencyMode,
-						 &CurSolution[RINEXObs->CurrentEpoch]);
+								   Settings.FrequencyMode,
+						           &CurSolution[RINEXObs->CurrentEpoch]);
 		}
 
 		if(Settings.OutputType == TO_SCREEN || Settings.OutputType == TO_SCREEN_FILE)
