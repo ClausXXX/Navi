@@ -63,6 +63,8 @@ int GetIndex(char*, char);
 double sqr(double);
 void WGS84ToPZ90_02(double, double, double, double*, double*, double*);
 void PZ90_02ToWGS84(double, double, double, double*, double*, double*);
+double Linear(double*, double*, double, int);
+double Lagrange(double*, double*, double, int);
 double Neville(double*, double*, double, int);
 double Azimuth(double, double, double, double, double, double);
 double Elevation(double, double, double, double, double, double);

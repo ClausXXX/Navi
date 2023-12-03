@@ -217,7 +217,7 @@ void FindSP3Ephemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 	const int GLOFreqLiters[26] = { 1, -4, 5,  6, 1, -4, 5, 6, -2, -7, 0, -1,
 								   -2, -7, 0, -1, 4, -3, 3, 2,  4, -3, 3,  2
 								   -8,  6};
-	int Index1, Index2, i, k, l, m;
+	int InterpolationOrder = INTERPOLATION_ORDER, Index1, Index2, i, k, l, m;
 	double deltat, tau;
 	RINEXObs->GPS = 0;
 	RINEXObs->GLO = 0;
@@ -229,15 +229,15 @@ void FindSP3Ephemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 		{
 			Sattelites[i].Valid = 0; // Усомнились, может быть в nav-файле его нет!
 			//j = 0;
-			if(INTERPOLATION_ORDER % 2 == 0)
+			if(InterpolationOrder % 2 == 0)
 			{
-				Index1 = -INTERPOLATION_ORDER / 2;
-				Index2 = INTERPOLATION_ORDER / 2;
+				Index1 = -InterpolationOrder / 2;
+				Index2 = InterpolationOrder / 2;
 			}
 			else
 			{
-				Index1 = -INTERPOLATION_ORDER / 2;
-				Index2 = INTERPOLATION_ORDER / 2 + 1;
+				Index1 = -InterpolationOrder / 2;
+				Index2 = InterpolationOrder / 2 + 1;
 			}
 
 			while((RINEXObs->Epochs[RINEXObs->CurrentEpoch].t +
@@ -289,12 +289,14 @@ void FindSP3Ephemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 									Sattelites[i].Valid = 1;
 									Sattelites[i].Number[0] = SP3->GPSEphemeris[l].Number[0];
 									Sattelites[i].Number[1] = SP3->GPSEphemeris[l].Number[1];
+									Sattelites[i].tk = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t;
 								}
 								InterpolationPoints[i].x[m] = SP3->GPSEphemeris[l].x * 1000.0;
 								InterpolationPoints[i].y[m] = SP3->GPSEphemeris[l].y * 1000.0;
 								InterpolationPoints[i].z[m] = SP3->GPSEphemeris[l].z * 1000.0;
 								InterpolationPoints[i].dt[m] = SP3->GPSEphemeris[l].dt * 1.0E-6;
 								InterpolationPoints[i].toc[m] = SP3->GPSEphemeris[l].toc;
+								//InterpolationPoints[i].tk[m] = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - SP3->GPSEphemeris[l].toc;
 								m++;
 								l = SP3->NOfGPSEphemeris;
                             }
@@ -334,6 +336,7 @@ void FindSP3Ephemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 									Sattelites[i].Number[0] = SP3->GLOEphemeris[l].Number[0];
 									Sattelites[i].Number[1] = SP3->GLOEphemeris[l].Number[1];
 									Sattelites[i].k = GLOFreqLiters[Sattelites[i].Number[1] - 1];
+                                    Sattelites[i].tk = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t;
 								}
 								InterpolationPoints[i].x[m] = SP3->GLOEphemeris[l].x * 1000.0;
 								InterpolationPoints[i].y[m] = SP3->GLOEphemeris[l].y * 1000.0;
@@ -378,6 +381,7 @@ void FindSP3Ephemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 									Sattelites[i].Valid = 1;
 									Sattelites[i].Number[0] = SP3->GALEphemeris[l].Number[0];
 									Sattelites[i].Number[1] = SP3->GALEphemeris[l].Number[1];
+                                    Sattelites[i].tk = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t;
 								}
 								InterpolationPoints[i].x[m] = SP3->GALEphemeris[l].x * 1000.0;
 								InterpolationPoints[i].y[m] = SP3->GALEphemeris[l].y * 1000.0;
@@ -422,6 +426,7 @@ void FindSP3Ephemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 									Sattelites[i].Valid = 1;
 									Sattelites[i].Number[0] = SP3->BDSEphemeris[l].Number[0];
 									Sattelites[i].Number[1] = SP3->BDSEphemeris[l].Number[1];
+                                    Sattelites[i].tk = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t;
 								}
 								InterpolationPoints[i].x[m] = SP3->BDSEphemeris[l].x * 1000.0;
 								InterpolationPoints[i].y[m] = SP3->BDSEphemeris[l].y * 1000.0;

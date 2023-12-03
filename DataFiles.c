@@ -632,7 +632,7 @@ void ConvertTECToIONEX(char *TECFileName, char *IONEXFileName)
 {
 	short Year, DOY;
 	int i, NOfTECMap = 1, NumberOfReadValues;
-	char *Pch, Month, Day, Hours, Minutes, CurrentString[BYTES_OF_STRING],
+	char *Pch, Month, Day, Hours, Minutes, FirstString = 1, BL = 1, CurrentString[BYTES_OF_STRING],
 			OutputFileName[MAXPATH];
 	float TimeInHours, TimeInHours0 = -1.0, Seconds;
 	double B, B0 = -1.0, L, TEC;
@@ -652,9 +652,27 @@ void ConvertTECToIONEX(char *TECFileName, char *IONEXFileName)
 	while(!feof(OtherTECfile))
 	{
 		fgets(CurrentString, BYTES_OF_STRING, OtherTECfile);
-		NumberOfReadValues =
-		sscanf(CurrentString, "%hd%hd%f%lf%lf%lf", &Year, &DOY,
-												   &TimeInHours, &L, &B, &TEC);
+		if(FirstString)
+		{
+			FirstString = 0;
+			sscanf(CurrentString, "%hd%hd%f%lf%lf%lf", &Year, &DOY, &TimeInHours, &B, &L, &TEC);
+			if(fabs(B) > 90.0)
+			{
+				BL = 0;
+			}
+		}
+
+		if(BL)
+		{
+            NumberOfReadValues =
+			sscanf(CurrentString, "%hd%hd%f%lf%lf%lf", &Year, &DOY, &TimeInHours, &B, &L, &TEC);
+		}
+		else
+		{
+            NumberOfReadValues =
+			sscanf(CurrentString, "%hd%hd%f%lf%lf%lf", &Year, &DOY, &TimeInHours, &L, &B, &TEC);
+        }
+
 		if(NumberOfReadValues == 6)
 		{
 			DOYToDate(Year, DOY, &Month, &Day);

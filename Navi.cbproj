@@ -103,6 +103,7 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Defines>_DEBUG;$(Defines)</Defines>
         <ILINK_LibraryPath>$(BDSLIB)\$(PLATFORM)$(CC_SUFFIX)\debug;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DynamicRTL>false</DynamicRTL>

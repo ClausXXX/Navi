@@ -68,7 +68,7 @@ double Saastamoinen(double H, double El, struct Weather *Weather)
 	{
 		return 0.0;
 	}
-	B = Neville(B0, H0, H, 13);
+	B = Neville(B0, H0, H, 14);
 	return 0.002277 / cos(z) * (Weather->p + (1255.0 / Weather->T + 0.05) *
 	       Weather->e - B * sqr(tan(z)));
 }

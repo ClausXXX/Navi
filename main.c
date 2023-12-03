@@ -1589,7 +1589,19 @@ int main(int argc, char **argv)
 								}
 							}
 
-                        }
+						}
+
+//						if(Ephemeris == PRECISE)
+//						{
+//							for(k = 0; k < INTERPOLATION_ORDER; k++)
+//							{
+//								theta = -OMEGAi_WGS84 * (RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - InterpolationPoints[i].toc[k]);
+//								Sattelites[i].xi = InterpolationPoints[i].x[k] * cos(theta) - InterpolationPoints[i].y[k] * sin(theta);
+//								Sattelites[i].yi = InterpolationPoints[i].x[k] * sin(theta) + InterpolationPoints[i].y[k] * cos(theta);
+//								InterpolationPoints[i].x[k] = Sattelites[i].xi;
+//								InterpolationPoints[i].y[k] = Sattelites[i].yi;
+//							}
+//						}
 
 						if(Ephemeris == PRECISE)
 						{
@@ -1597,21 +1609,32 @@ int main(int argc, char **argv)
 //							{
 //								printf("\n%lf %lf %lf", InterpolationPoints[i].x[k], InterpolationPoints[i].toc[k], InterpolationPoints[i].dt[k]);
 //							}
-                            Sattelites[i].dt = Neville(InterpolationPoints[i].dt,
-													   InterpolationPoints[i].toc,
-													   RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt,
-													   INTERPOLATION_ORDER + 1);
+//							Sattelites[i].dt = Neville(InterpolationPoints[i].dt,
+//													   InterpolationPoints[i].toc,
+//													   RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt,
+//													   INTERPOLATION_ORDER + 1);
+//							Sattelites[i].dt = Lagrange(InterpolationPoints[i].dt,
+//													   InterpolationPoints[i].toc,
+//													   RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt,
+//													   INTERPOLATION_ORDER + 1);
+
+
+							//Sattelites[i].tk = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t;
+							Sattelites[i].dt = Linear(InterpolationPoints[i].dt,
+													  InterpolationPoints[i].toc,
+													  Sattelites[i].tk,
+													  INTERPOLATION_ORDER + 1);
 							Sattelites[i].x = Neville(InterpolationPoints[i].x,
 													  InterpolationPoints[i].toc,
-													  RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt,
+													  Sattelites[i].tk,
 													  INTERPOLATION_ORDER + 1);
 							Sattelites[i].y = Neville(InterpolationPoints[i].y,
 													  InterpolationPoints[i].toc,
-													  RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt,
+													  Sattelites[i].tk,
 													  INTERPOLATION_ORDER + 1);
 							Sattelites[i].z = Neville(InterpolationPoints[i].z,
 													  InterpolationPoints[i].toc,
-													  RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt,
+													  Sattelites[i].tk,
 													  INTERPOLATION_ORDER + 1);
 						}
 
@@ -1642,9 +1665,25 @@ int main(int argc, char **argv)
 							Sattelites[i].vy = Sattelites[i].yi;
 						}
 
+//                        if(Ephemeris == PRECISE)
+//						{
+//							for(k = 0; k < INTERPOLATION_ORDER; k++)
+//							{
+//								Sattelites[i].xi = InterpolationPoints[i].x[k] * cos(theta) - InterpolationPoints[i].y[k] * sin(theta);
+//								Sattelites[i].yi = InterpolationPoints[i].x[k] * sin(theta) + InterpolationPoints[i].y[k] * cos(theta);
+//								InterpolationPoints[i].x[k] = Sattelites[i].xi;
+//								InterpolationPoints[i].y[k] = Sattelites[i].yi;
+//							}
+//						}
+
 						if(Ephemeris == BOARD)
 						{
 							Sattelites[i].tk = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt - Sattelites[i].toc;
+						}
+
+                        if(Ephemeris == PRECISE)
+						{
+                            Sattelites[i].tk = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt;
 						}
 
 						//printf("\n%lf %lf %lf\n", CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2]);
@@ -2021,9 +2060,9 @@ int main(int argc, char **argv)
 				}
 				else
 				{
-                   CurSolution[RINEXObs->CurrentEpoch].Q[0] = 1.0;
-				   CurSolution[RINEXObs->CurrentEpoch].Q[1] = 1.0;
-				   CurSolution[RINEXObs->CurrentEpoch].Q[2] = 1.0;
+				   CurSolution[RINEXObs->CurrentEpoch].Q[0] = 0.0;
+				   CurSolution[RINEXObs->CurrentEpoch].Q[1] = 0.0;
+				   CurSolution[RINEXObs->CurrentEpoch].Q[2] = 0.0;
 				   CurSolution[RINEXObs->CurrentEpoch].Valid = 0;
                 }
 
@@ -2031,9 +2070,9 @@ int main(int argc, char **argv)
 				   fabs(CurSolution[RINEXObs->CurrentEpoch].Q[1]) >= 1.0E+8 ||
 				   fabs(CurSolution[RINEXObs->CurrentEpoch].Q[2]) >= 1.0E+8)
 				{
-						CurSolution[RINEXObs->CurrentEpoch].Q[0] = 1.0;
-						CurSolution[RINEXObs->CurrentEpoch].Q[1] = 1.0;
-						CurSolution[RINEXObs->CurrentEpoch].Q[2] = 1.0;
+						CurSolution[RINEXObs->CurrentEpoch].Q[0] = 0.0;
+						CurSolution[RINEXObs->CurrentEpoch].Q[1] = 0.0;
+						CurSolution[RINEXObs->CurrentEpoch].Q[2] = 0.0;
 						CurSolution[RINEXObs->CurrentEpoch].Valid = 0;
 				}
 			}

@@ -91,6 +91,71 @@ void PZ90_02ToWGS84(double x, double y, double z,
 	*zi = z + 0.18;
 }
 
+// ћетод линейной интерпол€ции
+// *Y - массив известных значений функции в узлах xi
+// *x - массив значений узлов аргумента функции xi
+// x0 - расчЄтной точкf x
+// n - число точек интерпол€ции (пор€док интерпол€ции + 1)
+// ¬озвращаемое значение - значение функции в расчЄтной точке
+double Linear(double *y, double *x, double x0, int n)
+{
+	int i, j;
+	if(x0 <= x[0])
+	{
+		return y[0];
+	}
+	else
+	{
+		if(x0 >= x[n - 1])
+		{
+			return y[n - 1];
+        }
+    }
+
+	for(i = 0; i < n - 1; i++)
+	{
+	   if(x0 == x[i])
+		{
+			return y[i];
+		}
+		else
+		{
+			if(x0 > x[i] && x0 < x[i + 1])
+			{
+				return y[i] + (y[i + 1] - y[i]) / (x[i + 1] - x[i]) * (x0 - x[i]);
+			}
+		}
+
+	}
+    return 0;
+}
+
+// ћетод полиномиальной интерпол€ции Ћагранжа
+// *Y - массив известных значений функции в узлах xi
+// *x - массив значений узлов аргумента функции xi
+// x0 - расчЄтной точкf x
+// n - число точек интерпол€ции (пор€док интерпол€ции + 1)
+// ¬озвращаемое значение - значение функции в расчЄтной точке
+double Lagrange(double *y, double *x, double x0, int n)
+{
+	int i, j;
+	double y0 = 0;
+	double l;
+	for(i = 0; i < n; i++)
+	{
+		l = 1;
+		for(j = 0; j < n; j++)
+		{
+			if(j != i)
+			{
+				l *= (x0 - x[j]) / (x[i] - x[j]);
+			}
+		}
+		y0 += l * y[i];
+	}
+	return y0;
+}
+
 // ћетод полиномиальной интерпол€ции Ќевилла
 // *Y - массив известных значений функции в узлах xi
 // *x - массив значений узлов аргумента функции xi
@@ -100,7 +165,7 @@ void PZ90_02ToWGS84(double x, double y, double z,
 double Neville(double *Y, double *x, double x0, int n)
 {
 	int i, j;
-	double y[INTERPOLATION_ORDER + 3];
+	double y[INTERPOLATION_ORDER + 4];
 	for(i = 0; i < n; i++)
 	{
 		y[i] = Y[i];

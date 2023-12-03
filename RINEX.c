@@ -1538,7 +1538,6 @@ int ReadRINEXObs(char *ObservFileName, struct RINEXObs *RINEXObs)
 						}
 						Pch = strtok(NULL, " ");
 					}
-
 				}
 				RINEXObs->NOfEpochs++;
 			}
