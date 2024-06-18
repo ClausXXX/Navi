@@ -1530,6 +1530,7 @@ int main(int argc, char **argv)
 								PZ90_02ToWGS84(Sattelites[i].xi, Sattelites[i].yi, Sattelites[i].zi,
 											  &Sattelites[i].x, &Sattelites[i].y, &Sattelites[i].z);
 								Sattelites[i].dt = -Sattelites[i].TauN + Sattelites[i].GammaN * Sattelites[i].tk;
+													//- 2.0 * (Sattelites[i].x * Sattelites[i].vx + Sattelites[i].y * Sattelites[i].vy + Sattelites[i].z * Sattelites[i].vz) / sqr(c);
 							   //	Sattelites[i].tk = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt - Sattelites[i].toc;
 							}
 
@@ -1588,42 +1589,24 @@ int main(int argc, char **argv)
 									Sattelites[i].dt -= Sattelites[i].TGD2_B2_B3;
 								}
 							}
-
 						}
-
-//						if(Ephemeris == PRECISE)
-//						{
-//							for(k = 0; k < INTERPOLATION_ORDER; k++)
-//							{
-//								theta = -OMEGAi_WGS84 * (RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - InterpolationPoints[i].toc[k]);
-//								Sattelites[i].xi = InterpolationPoints[i].x[k] * cos(theta) - InterpolationPoints[i].y[k] * sin(theta);
-//								Sattelites[i].yi = InterpolationPoints[i].x[k] * sin(theta) + InterpolationPoints[i].y[k] * cos(theta);
-//								InterpolationPoints[i].x[k] = Sattelites[i].xi;
-//								InterpolationPoints[i].y[k] = Sattelites[i].yi;
-//							}
-//						}
 
 						if(Ephemeris == PRECISE)
 						{
-//							for(k = 0; k < (INTERPOLATION_ORDER + 1) && Cycles == 0; k++)
-//							{
-//								printf("\n%lf %lf %lf", InterpolationPoints[i].x[k], InterpolationPoints[i].toc[k], InterpolationPoints[i].dt[k]);
-//							}
-//							Sattelites[i].dt = Neville(InterpolationPoints[i].dt,
-//													   InterpolationPoints[i].toc,
-//													   RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt,
-//													   INTERPOLATION_ORDER + 1);
-//							Sattelites[i].dt = Lagrange(InterpolationPoints[i].dt,
-//													   InterpolationPoints[i].toc,
-//													   RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt,
-//													   INTERPOLATION_ORDER + 1);
-
-
-							//Sattelites[i].tk = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t;
-							Sattelites[i].dt = Linear(InterpolationPoints[i].dt,
+                            Sattelites[i].tk -= Settings.Step;
+							Sattelites[i].x0 = Neville(InterpolationPoints[i].x,
 													  InterpolationPoints[i].toc,
 													  Sattelites[i].tk,
 													  INTERPOLATION_ORDER + 1);
+							Sattelites[i].y0 = Neville(InterpolationPoints[i].y,
+													  InterpolationPoints[i].toc,
+													  Sattelites[i].tk,
+													  INTERPOLATION_ORDER + 1);
+							Sattelites[i].z0 = Neville(InterpolationPoints[i].z,
+													  InterpolationPoints[i].toc,
+													  Sattelites[i].tk,
+													  INTERPOLATION_ORDER + 1);
+							Sattelites[i].tk += Settings.Step;
 							Sattelites[i].x = Neville(InterpolationPoints[i].x,
 													  InterpolationPoints[i].toc,
 													  Sattelites[i].tk,
@@ -1636,10 +1619,37 @@ int main(int argc, char **argv)
 													  InterpolationPoints[i].toc,
 													  Sattelites[i].tk,
 													  INTERPOLATION_ORDER + 1);
+							Sattelites[i].dt = Linear(InterpolationPoints[i].dt,
+													  InterpolationPoints[i].toc,
+													  Sattelites[i].tk,
+													  INTERPOLATION_ORDER + 1);
+							Sattelites[i].tk += Settings.Step;
+							Sattelites[i].xi = Neville(InterpolationPoints[i].x,
+													  InterpolationPoints[i].toc,
+													  Sattelites[i].tk,
+													  INTERPOLATION_ORDER + 1);
+							Sattelites[i].yi = Neville(InterpolationPoints[i].y,
+													  InterpolationPoints[i].toc,
+													  Sattelites[i].tk,
+													  INTERPOLATION_ORDER + 1);
+							Sattelites[i].zi = Neville(InterpolationPoints[i].z,
+													  InterpolationPoints[i].toc,
+													  Sattelites[i].tk,
+													  INTERPOLATION_ORDER + 1);
+							Sattelites[i].tk -= Settings.Step;
+							Sattelites[i].vx = (Sattelites[i].xi - Sattelites[i].x0) / (2.0 * Settings.Step);
+							Sattelites[i].vy = (Sattelites[i].yi - Sattelites[i].y0) / (2.0 * Settings.Step);
+							Sattelites[i].vz = (Sattelites[i].zi - Sattelites[i].z0) / (2.0 * Settings.Step);
+							Sattelites[i].dt += -2.0 * (Sattelites[i].x * Sattelites[i].vx + Sattelites[i].y * Sattelites[i].vy + Sattelites[i].z * Sattelites[i].vz) / sqr(c);
 						}
 
 						//printf("\n%d\n", CurSolution[RINEXObs->CurrentEpoch].NOfValidSattelites);
-						   //	printf("\n%d %lf %lf %lf", Sattelites[i].Number[1], Sattelites[i].x, Sattelites[i].y, Sattelites[i].z);
+//							printf("\n%c%02d %12.3lf  %12.3lf  %12.3lf  %10.6lf", Sattelites[i].Number[0],
+//														 Sattelites[i].Number[1],
+//														 Sattelites[i].vx,
+//														 Sattelites[i].vy,
+//														 Sattelites[i].vz,
+//														 Sattelites[i].dt * 1E+3);
 						  //  getch();
 						if(fabs(Sattelites[i].x) >= 1.0E+9 ||
 						   fabs(Sattelites[i].y) >= 1.0E+9 ||
@@ -1649,7 +1659,7 @@ int main(int argc, char **argv)
 							CurSolution[RINEXObs->CurrentEpoch].NOfValidSattelites--;
 						}
 
-						for(j = 0; j < 2; j++)
+					   	for(j = 0; j < 2; j++)
 						{
 							Sattelites[i].rho = sqrt(sqr(CurSolution[RINEXObs->CurrentEpoch].Q[0] - Sattelites[i].x) + sqr(CurSolution[RINEXObs->CurrentEpoch].Q[1] - Sattelites[i].y) + sqr(CurSolution[RINEXObs->CurrentEpoch].Q[2] - Sattelites[i].z));
 							Sattelites[i].S = (Sattelites[i].x * CurSolution[RINEXObs->CurrentEpoch].Q[1] - Sattelites[i].y * CurSolution[RINEXObs->CurrentEpoch].Q[0]) * OMEGAi_WGS84 / c;
@@ -1659,22 +1669,14 @@ int main(int argc, char **argv)
 							Sattelites[i].yi = Sattelites[i].x * sin(theta) + Sattelites[i].y * cos(theta);
 							Sattelites[i].x = Sattelites[i].xi;
 							Sattelites[i].y = Sattelites[i].yi;
-							Sattelites[i].xi = Sattelites[i].vx * cos(theta) + Sattelites[i].vy * sin(theta) + OMEGAi_WGS84 * Sattelites[i].y;
-							Sattelites[i].yi = -Sattelites[i].vx * sin(theta) + Sattelites[i].vy * cos(theta) - OMEGAi_WGS84 * Sattelites[i].x;
-							Sattelites[i].vx = Sattelites[i].xi;
-							Sattelites[i].vy = Sattelites[i].yi;
-						}
-
-//                        if(Ephemeris == PRECISE)
-//						{
-//							for(k = 0; k < INTERPOLATION_ORDER; k++)
+//							if(Sattelites[i].vx || Sattelites[i].vy || Sattelites[i].vz)
 //							{
-//								Sattelites[i].xi = InterpolationPoints[i].x[k] * cos(theta) - InterpolationPoints[i].y[k] * sin(theta);
-//								Sattelites[i].yi = InterpolationPoints[i].x[k] * sin(theta) + InterpolationPoints[i].y[k] * cos(theta);
-//								InterpolationPoints[i].x[k] = Sattelites[i].xi;
-//								InterpolationPoints[i].y[k] = Sattelites[i].yi;
+//								Sattelites[i].xi = Sattelites[i].vx * cos(theta) + Sattelites[i].vy * sin(theta) + OMEGAi_WGS84 * Sattelites[i].y;
+//								Sattelites[i].yi = -Sattelites[i].vx * sin(theta) + Sattelites[i].vy * cos(theta) - OMEGAi_WGS84 * Sattelites[i].x;
+//								Sattelites[i].vx = Sattelites[i].xi;
+//								Sattelites[i].vy = Sattelites[i].yi;
 //							}
-//						}
+						}
 
 						if(Ephemeris == BOARD)
 						{
@@ -1683,10 +1685,8 @@ int main(int argc, char **argv)
 
                         if(Ephemeris == PRECISE)
 						{
-                            Sattelites[i].tk = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt;
+							Sattelites[i].tk = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - tau - Sattelites[i].dt;
 						}
-
-						//printf("\n%lf %lf %lf\n", CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2]);
 						Sattelites[i].Az = Azimuth(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], Sattelites[i].x, Sattelites[i].y, Sattelites[i].z);
 						Sattelites[i].El = Elevation(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], Sattelites[i].x, Sattelites[i].y, Sattelites[i].z);
 						if(Settings.ElevationMask)
@@ -1710,8 +1710,7 @@ int main(int argc, char **argv)
 										  RINEXObs->Epochs[RINEXObs->CurrentEpoch].Minutes * 60 +
 										  RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds;
 								Sattelites[i].I = Klobuchar(CurSolution[RINEXObs->CurrentEpoch].B, CurSolution[RINEXObs->CurrentEpoch].L, Sattelites[i].Az, Sattelites[i].El, TimeInSeconds, RINEXNav->AlphaGPS, RINEXNav->BetaGPS) *
-								                  KlobMapping(Sattelites[i].El);
-								//printf("\n%lf", Sattelites[i].I);
+												  KlobMapping(Sattelites[i].El);
 							}
 
 							if(Settings.Ionosphere == 'A')
@@ -1731,7 +1730,6 @@ int main(int argc, char **argv)
 									Sattelites[i].I = 0.0;
 
 								}
-								//printf("\n%lf", Sattelites[i].I);
 							}
 
 							if(Settings.Ionosphere == 'S')
@@ -1749,7 +1747,6 @@ int main(int argc, char **argv)
 								{
 									Sattelites[i].I = 0.0;
 								}
-								//printf("\n%lf", Sattelites[i].B);
 							}
 
 							if(Settings.Ionosphere == 'N')
@@ -1766,7 +1763,6 @@ int main(int argc, char **argv)
 								performtest(RINEXObs->Epochs[RINEXObs->CurrentEpoch].Month, RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours, pdRecvLLHdeg, pdSatLLHdeg,
 											RINEXNav->AzGAL, &stModip, &stCCIR,
 											&dModip, &Sattelites[i].I);
-								//printf("\n%lf", Sattelites[i].I);
 							}
 
 							if(Settings.Ionosphere == 'B')
@@ -1782,7 +1778,6 @@ int main(int argc, char **argv)
 									  RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds,
 									  CurSolution[RINEXObs->CurrentEpoch].B, CurSolution[RINEXObs->CurrentEpoch].L, Sattelites[i].Az, Sattelites[i].El, RINEXNav->AlphaBDS) *
 									  IonoMapping(Sattelites[i].El, Re_BDS, hi_BDGIM);
-							//printf("\n%lf", Sattelites[i].I);
 							}
 
 							if(Settings.Ionosphere == 'G')
@@ -1791,7 +1786,6 @@ int main(int argc, char **argv)
 								RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours = (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Hours + (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Minutes / 60.0 + RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds / 3600.0;
 								Sattelites[i].I = GEMTEC(CurSolution[RINEXObs->CurrentEpoch].L, RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours, CurSolution[RINEXObs->CurrentEpoch].B, Settings.F107, RINEXObs->Epochs[RINEXObs->CurrentEpoch].Month, RINEXObs->Epochs[RINEXObs->CurrentEpoch].Day, GEMTECData.evt, GEMTECData.evm, GEMTECData.evl, GEMTECData.evf, GEMTECData.A) *
 												  IonoMapping(Sattelites[i].El, Re_WGS84, hi_GEMTEC);
-								//printf("\n%lf", Sattelites[i].I);
 							}
 
 							if(Settings.Ionosphere == 'I' || Settings.Ionosphere == 'M')
@@ -1816,8 +1810,6 @@ int main(int argc, char **argv)
 								time = epoch2time(ep);
 								iontec(time, &nav, pos, azel, opt, &delay, &var);
 								Sattelites[i].I = delay * sqr(fL1_GPS) / 40.308E+4;
-								//printf("\n%lf", ep[0]);
-							   //printf("\n%lf", Sattelites[i].I);
 							}
 
 							if(Settings.Ionosphere == 'v')
@@ -1853,7 +1845,6 @@ int main(int argc, char **argv)
 								{
 									Sattelites[i].I = TayAbsTEC->TECRecords[TayAbsTEC->NOfRecords - 1].TEC;
 								}
-								//printf("\n%d %lf", k,  Sattelites[i].I);
 								Sattelites[i].I *= IonoMappingT(CurSolution[RINEXObs->CurrentEpoch].B, Sattelites[i].El, Re_WGS84, hi_T);
 							   //	Sattelites[i].I *= IonoMapping(Sattelites[i].El, Re_WGS84, hi_T);
 							}
@@ -1863,7 +1854,6 @@ int main(int argc, char **argv)
 								RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours = (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Hours + (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Minutes / 60.0 + RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds / 3600.0;
 								for(j = 0; j < NOfTayAbsTECFiles; j++)
 								{
-									//if(!strcmp(Sattelites[i].Number, TayAbsTEC[j].SatNumber))
 									if(Sattelites[i].Number[0] == TayAbsTEC[j].SatNumber[0] &&
 									   Sattelites[i].Number[1] == TayAbsTEC[j].SatNumber[1])
 									{
@@ -1910,12 +1900,6 @@ int main(int argc, char **argv)
 										}
 									}
 								}
-//								if(Cycles == 5)
-//								{
-//								printf("\n%lf", Sattelites[i].I);
-//                                }
-							   	//printf("\n%f %f", RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours, TayAbsTEC[j].TECRecords[k].UT);
-							   // getch();
 							}
 
 							if(Sattelites[i].Number[0] == 'G')
@@ -2030,7 +2014,6 @@ int main(int argc, char **argv)
 									StandartAtmosphere(CurSolution[RINEXObs->CurrentEpoch].H, &Weather);
 								}
 								Sattelites[i].T = Saastamoinen(CurSolution[RINEXObs->CurrentEpoch].H * 1.0E-3, Sattelites[i].El, &Weather);
-                           		//Sattelites[i].T = 0.0;
 							}
 
 							if(Settings.Trophosphere == 'D')

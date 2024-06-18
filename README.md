@@ -14,3 +14,6 @@ Main features of the program:
 - finding the coordinates of the receiver in a certain time interval with a step that is a multiple of the step in the observation file;
 - comparison of the results obtained with exact geodetic and calculated median coordinates of the receiver, calculation of the absolute and root-mean-square positioning error;
 - output data to the screen and to a text file.
+
+© Zatolokin D.A. 2015-2023
+clausxxx@rambler.ru

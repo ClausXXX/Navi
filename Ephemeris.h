@@ -19,7 +19,7 @@ void FindRINEXEphemeris(struct Settings*, struct RINEXObs*,
 						struct RINEXNav*, struct Sattelite*);
 void FindSP3Ephemeris(struct Settings*, struct RINEXObs*, struct SP3*,
 					  struct Sattelite*, struct InterpolationPoints*);
-void GPSSatteliteXV(struct Sattelite*, char Velocity);
+void GPSSatteliteXV(struct Sattelite*, char);
 void GLODiffEqCoefficients(double*, double*, double*, double);
 void GLOSatteliteXV(struct Sattelite*);
 

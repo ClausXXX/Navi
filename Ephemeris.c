@@ -38,10 +38,6 @@ void FindRINEXEphemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 					   RINEXNav->GPSEphemeris[j].Number[1] == RINEXObs->Epochs[RINEXObs->CurrentEpoch].Sattelites[i][1] &&
 					   deltat <= 7200.0 && !RINEXNav->GPSEphemeris[j].Health)
 					{
-//                        printf("\n%c%hhd\n", RINEXObs->Epochs[RINEXObs->CurrentEpoch].Sattelites[i][0], RINEXObs->Epochs[RINEXObs->CurrentEpoch].Sattelites[i][1]);
-//				printf("\n%c", Settings->System[1]);
-//			   	puts("\n");
-//				getch();
 						RINEXObs->GPS = 1;
 						//if(RINEXNav->GPSEphemeris[j].Minutes == 0 &&
 					   	//RINEXNav->GPSEphemeris[j].Seconds == 0.0)
@@ -214,9 +210,9 @@ void FindSP3Ephemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 					  struct Sattelite *Sattelites,
 					  struct InterpolationPoints *InterpolationPoints)
 {
-	const int GLOFreqLiters[26] = { 1, -4, 5,  6, 1, -4, 5, 6, -2, -7, 0, -1,
-								   -2, -7, 0, -1, 4, -3, 3, 2,  4, -3, 3,  2
-								   -8,  6};
+	const int GLOFreqNumbers[26] = { 1, -4, 5,  6, 1, -4, 5, 6, -2, -7, 0, -1,
+									-2, -7, 0, -1, 4, -3, 3, 2,  4, -3, 3,  2
+								    -8,  6};
 	int InterpolationOrder = INTERPOLATION_ORDER, Index1, Index2, i, k, l, m;
 	double deltat, tau;
 	RINEXObs->GPS = 0;
@@ -228,7 +224,6 @@ void FindSP3Ephemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 		if(Sattelites[i].Valid)
 		{
 			Sattelites[i].Valid = 0; // Усомнились, может быть в nav-файле его нет!
-			//j = 0;
 			if(InterpolationOrder % 2 == 0)
 			{
 				Index1 = -InterpolationOrder / 2;
@@ -254,15 +249,9 @@ void FindSP3Ephemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 				Index2--;
 			}
 			m = 0;
-			//printf("\n%d %d\n", Index1, Index2);
-		   // getch();
 			for(k = Index1; k <= Index2; k++)
 			{
 				l = 0;
-				//printf("\n%c%hhd\n", RINEXObs->Epochs[RINEXObs->CurrentEpoch].Sattelites[i][0], RINEXObs->Epochs[RINEXObs->CurrentEpoch].Sattelites[i][1]);
-				//printf("\n%c", Settings->System[1]);
-			   //	puts("\n");
-				//getch();
 				if(RINEXObs->Epochs[RINEXObs->CurrentEpoch].Sattelites[i][0] == 'G' && strstr(Settings->System, "G"))
 				{
 					while(l < SP3->NOfGPSEphemeris)
@@ -296,7 +285,6 @@ void FindSP3Ephemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 								InterpolationPoints[i].z[m] = SP3->GPSEphemeris[l].z * 1000.0;
 								InterpolationPoints[i].dt[m] = SP3->GPSEphemeris[l].dt * 1.0E-6;
 								InterpolationPoints[i].toc[m] = SP3->GPSEphemeris[l].toc;
-								//InterpolationPoints[i].tk[m] = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t - SP3->GPSEphemeris[l].toc;
 								m++;
 								l = SP3->NOfGPSEphemeris;
                             }
@@ -335,7 +323,7 @@ void FindSP3Ephemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 									Sattelites[i].Valid = 1;
 									Sattelites[i].Number[0] = SP3->GLOEphemeris[l].Number[0];
 									Sattelites[i].Number[1] = SP3->GLOEphemeris[l].Number[1];
-									Sattelites[i].k = GLOFreqLiters[Sattelites[i].Number[1] - 1];
+									Sattelites[i].k = GLOFreqNumbers[Sattelites[i].Number[1] - 1];
                                     Sattelites[i].tk = RINEXObs->Epochs[RINEXObs->CurrentEpoch].t;
 								}
 								InterpolationPoints[i].x[m] = SP3->GLOEphemeris[l].x * 1000.0;
