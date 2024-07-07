@@ -240,7 +240,8 @@ void NaviSolve(struct Sattelite *Sattelites, char NOfSattelites,
 
 		if(Sattelites[i].Valid)
 		{
-			L[i] = Sattelites[i].rho - Sattelites[i].P[0] - c * Sattelites[i].dt + Sattelites[i].I + Sattelites[i].T;
+			L[i] = Sattelites[i].rho + Sattelites[i].drho - Sattelites[i].P[0] -
+			       c * Sattelites[i].dt + Sattelites[i].I + Sattelites[i].T;
 			for(j = 3; j < MAX_OF_UNKNOWNS; j++)
 			{
 				L[i] += Q[j];

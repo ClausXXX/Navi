@@ -582,9 +582,9 @@ void GLOSatteliteXV(struct Sattelite *Sattelite)
 {
 	int i;
 	double t, dt, X[6], Xk[6], Xii[3], K1[6], K2[6], K3[6], K4[6];
-	X[0] = Sattelite->x;
-	X[1] = Sattelite->y;
-	X[2] = Sattelite->z;
+	X[0] = Sattelite->x0;
+	X[1] = Sattelite->y0;
+	X[2] = Sattelite->z0;
 	X[3] = Sattelite->vx0;
 	X[4] = Sattelite->vy0;
 	X[5] = Sattelite->vz0;
@@ -629,9 +629,9 @@ void GLOSatteliteXV(struct Sattelite *Sattelite)
 		}
 		t -= dt;
 	}
-	Sattelite->xi = X[0];
-	Sattelite->yi = X[1];
-	Sattelite->zi = X[2];
+	Sattelite->x = X[0];
+	Sattelite->y = X[1];
+	Sattelite->z = X[2];
 	Sattelite->vx = X[3];
 	Sattelite->vy = X[4];
 	Sattelite->vz = X[5];

@@ -6,6 +6,7 @@ struct Weather
     double p, t, T, e, r;
 };
 
+double PrimitiveTrop(double);
 double GCAT(double, double);
 void StandartAtmosphere(double, struct Weather*);
 double Saastamoinen(double, double, struct Weather*);
