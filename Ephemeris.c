@@ -43,7 +43,7 @@ void FindRINEXEphemeris(struct Settings *Settings, struct RINEXObs *RINEXObs,
 					   	//RINEXNav->GPSEphemeris[j].Seconds == 0.0)
 						{
 							Sattelites[i].Valid = 1;
-                        }
+						}
 						Sattelites[i].Number[0] = RINEXNav->GPSEphemeris[j].Number[0];
 						Sattelites[i].Number[1] = RINEXNav->GPSEphemeris[j].Number[1];
 						Sattelites[i].a0 = RINEXNav->GPSEphemeris[j].a0;

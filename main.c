@@ -1449,11 +1449,21 @@ int main(int argc, char **argv)
 			if(Ephemeris == PRECISE)
 			{
 				FindSP3Ephemeris(&Settings, RINEXObs, SP3,
-				                 Sattelites, InterpolationPoints);
+								 Sattelites, InterpolationPoints);
 			}
-			SattelitesInitialRange(&RINEXObs->Epochs[RINEXObs->CurrentEpoch], Sattelites,
-								   Settings.FrequencyMode,
-						           &CurSolution[RINEXObs->CurrentEpoch]);
+//			SattelitesInitialRange(&RINEXObs->Epochs[RINEXObs->CurrentEpoch], Sattelites,
+//								   Settings.FrequencyMode,
+//								   &CurSolution[RINEXObs->CurrentEpoch]);
+
+			// Пересчёт числа подходящих спутников после поиска эфемерид
+			for(i = 0; i < RINEXObs->Epochs[RINEXObs->CurrentEpoch].NOfSattelites; i++)
+			{
+				if(Sattelites[i].Valid)
+				{
+					CurSolution[RINEXObs->CurrentEpoch].NOfValidSattelites++;
+				}
+
+			}
 		}
 
 		if(Settings.OutputType == TO_SCREEN || Settings.OutputType == TO_SCREEN_FILE)
@@ -1669,9 +1679,12 @@ int main(int argc, char **argv)
 							Sattelites[i].rho = sqrt(sqr(CurSolution[RINEXObs->CurrentEpoch].Q[0] - Sattelites[i].x) + sqr(CurSolution[RINEXObs->CurrentEpoch].Q[1] - Sattelites[i].y) + sqr(CurSolution[RINEXObs->CurrentEpoch].Q[2] - Sattelites[i].z));
                             ri = sqrt(sqr(Sattelites[i].x) + sqr(Sattelites[i].y) + sqr(Sattelites[i].z));
 							RA = sqrt(sqr(CurSolution[RINEXObs->CurrentEpoch].Q[0]) + sqr(CurSolution[RINEXObs->CurrentEpoch].Q[1]) + sqr(CurSolution[RINEXObs->CurrentEpoch].Q[2]));
-							Sattelites[i].drho = 2.0 * mu_WGS84 / sqr(c) * log((ri + RA + Sattelites[i].rho) / (ri + RA - Sattelites[i].rho));
+						   	Sattelites[i].drho = 2.0 * mu_WGS84 / sqr(c) * log((ri + RA + Sattelites[i].rho) / (ri + RA - Sattelites[i].rho));
 							Sattelites[i].S = (Sattelites[i].x * CurSolution[RINEXObs->CurrentEpoch].Q[1] - Sattelites[i].y * CurSolution[RINEXObs->CurrentEpoch].Q[0]) * OMEGAi_WGS84 / c;
-							tau = (Sattelites[i].rho + Sattelites[i].drho + Sattelites[i].S) / c;
+						   	tau = (Sattelites[i].rho + Sattelites[i].drho + Sattelites[i].S) / c;
+							//tau = Sattelites[i].rho / c;
+							// Изменение координат спутника при повороте Земли
+							// за время распространения сигнала, "эффект Саньяка"
 							theta = -OMEGAi_WGS84 * tau;
 							x[1] = Sattelites[i].x * cos(theta) - Sattelites[i].y * sin(theta);
 							y[1] = Sattelites[i].x * sin(theta) + Sattelites[i].y * cos(theta);
@@ -2013,10 +2026,25 @@ int main(int argc, char **argv)
 								Sattelites[i].T = PrimitiveTrop(Sattelites[i].El);
 							}
 
+							if(Settings.Trophosphere == 'M')
+							{
+								Sattelites[i].T = ModifiedPrimitiveTrop(Sattelites[i].El);
+							}
+
 							if(Settings.Trophosphere == 'G')
 							{
 								DecartToGeo(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], &CurSolution[RINEXObs->CurrentEpoch].B, &CurSolution[RINEXObs->CurrentEpoch].L, &CurSolution[RINEXObs->CurrentEpoch].H);
 								Sattelites[i].T = GCAT(CurSolution[RINEXObs->CurrentEpoch].H * 1.0E-3, Sattelites[i].El);
+							}
+
+                            if(Settings.Trophosphere == 'H')
+							{
+								DecartToGeo(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], &CurSolution[RINEXObs->CurrentEpoch].B, &CurSolution[RINEXObs->CurrentEpoch].L, &CurSolution[RINEXObs->CurrentEpoch].H);
+								if(!Settings.p)
+								{
+									StandartAtmosphere(CurSolution[RINEXObs->CurrentEpoch].H, &Weather);
+								}
+								Sattelites[i].T = Hopfield(Sattelites[i].El, &Weather);
 							}
 
 							if(Settings.Trophosphere == 'S')
@@ -2037,6 +2065,19 @@ int main(int argc, char **argv)
 									StandartAtmosphere(CurSolution[RINEXObs->CurrentEpoch].H, &Weather);
 								}
 								Sattelites[i].T = SaastamoinenDavis(CurSolution[RINEXObs->CurrentEpoch].B, CurSolution[RINEXObs->CurrentEpoch].H * 1.0E-3, Sattelites[i].El, &Weather);
+							}
+
+							if(Settings.Trophosphere == 'N')
+							{
+                                DOY = DateToDOY(RINEXObs->Epochs[RINEXObs->NOfEpochs / 2].Year,
+									  RINEXObs->Epochs[RINEXObs->NOfEpochs / 2].Month,
+									  RINEXObs->Epochs[RINEXObs->NOfEpochs / 2].Day);
+								DecartToGeo(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], &CurSolution[RINEXObs->CurrentEpoch].B, &CurSolution[RINEXObs->CurrentEpoch].L, &CurSolution[RINEXObs->CurrentEpoch].H);
+								if(!Settings.p)
+								{
+									StandartAtmosphere(CurSolution[RINEXObs->CurrentEpoch].H, &Weather);
+								}
+								Sattelites[i].T = SaastamoinenNeil(DOY - 1, CurSolution[RINEXObs->CurrentEpoch].B, CurSolution[RINEXObs->CurrentEpoch].H * 1.0E-3, Sattelites[i].El, &Weather);
 							}
 						}
 						else
