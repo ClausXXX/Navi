@@ -51,8 +51,8 @@
         <SanitizedProjectName>Navi</SanitizedProjectName>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Locale>1049</VerInfo_Locale>
-        <ILINK_LibraryPath>NeQuick-Gv1.2\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
-        <IncludePath>NeQuick-Gv1.2\;$(IncludePath)</IncludePath>
+        <ILINK_LibraryPath>Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\;Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\;NeQuick-Gv1.2\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <IncludePath>Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\;Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\;NeQuick-Gv1.2\;$(IncludePath)</IncludePath>
         <PackageImports>vclimg.bpi;vcl.bpi;vclx.bpi;dbrtl.bpi;Rave90VCL.bpi;bdertl.bpi;rtl.bpi;bcbie.bpi;xmlrtl.bpi;vclactnband.bpi;bcbsmp.bpi;VclSmp.bpi;svnui.bpi;svn.bpi;TeeUI.bpi;TeeDB.bpi;Tee.bpi;vcldb.bpi;vcldbx.bpi;vcltouch.bpi;dsnap.bpi;dsnapcon.bpi;vclib.bpi;ibxpress.bpi;adortl.bpi;IndyCore.bpi;IndySystem.bpi;IndyProtocols.bpi;inet.bpi;intrawebdb_110_150.bpi;Intraweb_110_150.bpi;vclie.bpi;websnap.bpi;webdsnap.bpi;inetdb.bpi;inetdbbde.bpi;inetdbxpress.bpi;soaprtl.bpi;vclribbon.bpi;dbexpress.bpi;DbxCommonDriver.bpi;DataSnapIndy10ServerTransport.bpi;DataSnapProviderClient.bpi;DbxClientDriver.bpi;DataSnapClient.bpi;dbxcds.bpi;DataSnapServer.bpi;AzureCloud.bpi;DBXInterBaseDriver.bpi;DBXMySQLDriver.bpi;DBXFirebirdDriver.bpi;DBXSybaseASEDriver.bpi;DBXSybaseASADriver.bpi;DBXOracleDriver.bpi;DBXMSSQLDriver.bpi;DBXInformixDriver.bpi;DBXDb2Driver.bpi;CodeSiteExpressVcl.bpi;$(PackageImports)</PackageImports>
         <LinkPackageStatics>rtl.lib;vcl.lib</LinkPackageStatics>
         <NoVCL>true</NoVCL>
@@ -141,6 +141,132 @@
         </CppCompile>
         <None Include="Ephemeris.h">
             <BuildOrder>43</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\Check.c">
+            <BuildOrder>48</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\Check.h">
+            <BuildOrder>49</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\CheckOutput.c">
+            <BuildOrder>50</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\CheckOutput.h">
+            <BuildOrder>51</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\ChekInput.c">
+            <BuildOrder>52</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\ChekInput.h">
+            <BuildOrder>53</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\ComputeDoA.c">
+            <BuildOrder>58</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\ComputeDoA.h">
+            <BuildOrder>59</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\ComputeLocalTime.c">
+            <BuildOrder>60</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\ComputeLocalTime.h">
+            <BuildOrder>61</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\Compute_IonoDelay.c">
+            <BuildOrder>54</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\Compute_IonoDelay.h">
+            <BuildOrder>55</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\Compute_sTEC.c">
+            <BuildOrder>56</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\Compute_sTEC.h">
+            <BuildOrder>57</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\ElevetionCheck.c">
+            <BuildOrder>62</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\ElevetionCheck.h">
+            <BuildOrder>63</BuildOrder>
+        </None>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\ErrorCode.h">
+            <BuildOrder>64</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\ErrorMnG.c">
+            <BuildOrder>65</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\ErrorMnG.h">
+            <BuildOrder>66</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\getIonoPiercePoint.c">
+            <BuildOrder>67</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\getIonoPiercePoint.h">
+            <BuildOrder>68</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\llh2xyz.c">
+            <BuildOrder>69</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\llh2xyz.h">
+            <BuildOrder>70</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\llh2xyz_Rec.c">
+            <BuildOrder>71</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\llh2xyz_Rec.h">
+            <BuildOrder>72</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\llh2xyz_Sat.c">
+            <BuildOrder>73</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\llh2xyz_Sat.h">
+            <BuildOrder>74</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\NTCM_G.c">
+            <BuildOrder>75</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\NTCM_G.h">
+            <BuildOrder>76</BuildOrder>
+        </None>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\NTCM_G_Coeff.h">
+            <BuildOrder>77</BuildOrder>
+        </None>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\NTCM_G_private.h">
+            <BuildOrder>78</BuildOrder>
+        </None>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\NTCM_G_types.h">
+            <BuildOrder>79</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\NTCM_Procedure.c">
+            <BuildOrder>80</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\NTCM_Procedure.h">
+            <BuildOrder>81</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\NTCM_Procedure_Core.c">
+            <BuildOrder>82</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\NTCM_Procedure_Core.h">
+            <BuildOrder>83</BuildOrder>
+        </None>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\NTCM_Procedure_private.h">
+            <BuildOrder>84</BuildOrder>
+        </None>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\NTCM_Procedure_types.h">
+            <BuildOrder>85</BuildOrder>
+        </None>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\PhysicalConst.h">
+            <BuildOrder>86</BuildOrder>
+        </None>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\rtwtypes.h">
+            <BuildOrder>89</BuildOrder>
+        </None>
+        <CppCompile Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\rt_roundd.c">
+            <BuildOrder>87</BuildOrder>
+        </CppCompile>
+        <None Include="Galileo_NTCM_G\Software Package - v1.1\NTCM_src\src\lib\rt_roundd.h">
+            <BuildOrder>88</BuildOrder>
         </None>
         <CppCompile Include="Ionex.c">
             <BuildOrder>37</BuildOrder>
@@ -417,6 +543,18 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName=".\Debug\Win32\Navi.exe" Configuration="Debug" Class="ProjectOutput"/>
+                <DeployFile LocalName=".\Debug\Win32\Navi.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>Navi.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName=".\Debug\Win32\Navi.tds" Configuration="Debug" Class="DebugSymbols">
+                    <Platform Name="Win32">
+                        <RemoteName>Navi.tds</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName=".\Release\Win32\Navi.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Navi.exe</RemoteName>

@@ -651,7 +651,7 @@ void ConvertTECToIONEX(char *TECFileName, char *IONEXFileName)
 	Pch = strtok(OutputFileName, ".");
 	while(!feof(OtherTECfile))
 	{
-		fgets(CurrentString, BYTES_OF_STRING, OtherTECfile);
+	    fgets(CurrentString, BYTES_OF_STRING, OtherTECfile);
 		if(FirstString)
 		{
 			FirstString = 0;
@@ -808,10 +808,10 @@ int ReadSpecSatData(char *SpecSatFileName, struct RINEXObs *RINEXObs)
 		sscanf(CurrentString, "%hhd%hhd%f", &Hours, &Minutes, &Seconds);
 		for(i = 0; i < RINEXObs->NOfEpochs; i++)
 		{
-			if(RINEXObs->Epochs[i].t == DateTimeToUNIXTime(RINEXObs->Epochs[i].Year,
-														   RINEXObs->Epochs[i].Month,
-														   RINEXObs->Epochs[i].Day,
-														   Hours, Minutes, Seconds))
+			if(RINEXObs->Epochs[i].Hours == Hours &&
+			   RINEXObs->Epochs[i].Minutes == Minutes &&
+			   RINEXObs->Epochs[i].Seconds == Seconds)
+
 			{
 				j = 0;
 				Pch = strpbrk(CurrentString, "GRESC");
@@ -845,7 +845,7 @@ int ReadSpecSatData(char *SpecSatFileName, struct RINEXObs *RINEXObs)
 
 					if(!Find)
 					{
-						RINEXObs->Epochs[i].Sattelites[k][0] = '0';
+						//RINEXObs->Epochs[i].Sattelites[k][0] = '0';
 						RINEXObs->Epochs[i].Sattelites[k][1] = 0;
 					}
 				}

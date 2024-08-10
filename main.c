@@ -1,7 +1,7 @@
 /*
 	Программа решения навигационной задачи ГНСС
 	Navi
-	© Затолокин Д.А., 2015-2023
+	© Затолокин Д.А., 2015-2024
 */
 #include <stdio.h>
 #include <conio.h>
@@ -23,6 +23,7 @@
 #include "Solution.h"
 #include "Ionosphere.h"
 #include "NeQuickG.h"
+#include "Galileo_NTCM_G\\Software Package - v1.1\\NTCM_src\\src\\lib\\NTCM_Procedure.h"
 #include "Ionex.h"
 #include "Troposphere.h"
 
@@ -76,6 +77,17 @@ int main(int argc, char **argv)
 	double pdRecvLLHdeg[3];
 	double pdSatLLHdeg[3];
 	double dModip;
+
+    /* Input frequency Parameter */
+	real_T GNSScarrierFrequency;
+	real_T azpvec[3];
+	real_T llhRecDeg[3], llhSatDeg[3];
+	real_T doy, utc;
+	/* NTCM_Procedure Output */
+	real_T vTEC_out, sTEC_out, delay_m_out;
+	uint16_T ErrorCode[16]; // (static stub not used)
+
+
 	double ep[6];
 	nav_t nav;
 	gtime_t time;
@@ -134,6 +146,36 @@ int main(int argc, char **argv)
 	printf("AccumulateOutputData=%hhd\n", Settings.AccumulateOutputData);
 	printf("DifferentialTimeMode=%hhd\n", Settings.DTM);
 #endif
+
+//	azpvec[0] = 236.831641;
+//	azpvec[1] = -0.39362878;
+//	azpvec[2] = 0.00402826613;
+//	doy =  105;
+//	utc = 0;
+//	llhRecDeg[0] = 82.49;  //B
+//	llhRecDeg[1] = -62.34;  //L
+//	llhRecDeg[2] = 78.11;    //H
+//	llhSatDeg[0] = 54.29;     //B
+//	llhSatDeg[1] = 8.23;       //L
+//	llhSatDeg[2] = 20281546.18; //H
+////    azpvec[0] = 236.831641;
+////	azpvec[1] = -0.39362878;
+////	azpvec[2] = 0.00402826613;
+////	doy =  105;
+////	utc = 20;
+////	llhRecDeg[0] = 5.25;
+////	llhRecDeg[1] = -52.81;
+////	llhRecDeg[2] = -25.76;
+////	llhSatDeg[0] = 44.72;
+////	llhSatDeg[1] = 10.94;
+////	llhSatDeg[2] = 20450566.19;
+//	GNSScarrierFrequency = fE5a_GAL;
+//	NTCM_Procedure(azpvec, &doy, &utc, llhRecDeg, llhSatDeg,
+//					&GNSScarrierFrequency, &vTEC_out, &sTEC_out, &delay_m_out, ErrorCode);
+//	printf("%lf", sTEC_out);
+//    getch();
+
+
 
 	if(argc >= 3)
 	{
@@ -1728,16 +1770,16 @@ int main(int argc, char **argv)
 							{
 								DecartToGeo(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], &CurSolution[RINEXObs->CurrentEpoch].B, &CurSolution[RINEXObs->CurrentEpoch].L, &CurSolution[RINEXObs->CurrentEpoch].H);
 								TimeInSeconds = RINEXObs->Epochs[RINEXObs->CurrentEpoch].Hours * 3600 +
-										  RINEXObs->Epochs[RINEXObs->CurrentEpoch].Minutes * 60 +
-										  RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds;
+												RINEXObs->Epochs[RINEXObs->CurrentEpoch].Minutes * 60 +
+												RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds;
 								Sattelites[i].I = Klobuchar(CurSolution[RINEXObs->CurrentEpoch].B, CurSolution[RINEXObs->CurrentEpoch].L, Sattelites[i].Az, Sattelites[i].El, TimeInSeconds, RINEXNav->AlphaGPS, RINEXNav->BetaGPS) *
 												  KlobMapping(Sattelites[i].El);
 							}
 
 							if(Settings.Ionosphere == 'A')
 							{
+                                RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours = (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Hours + (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Minutes / 60.0 + RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds / 3600.0;
 								DecartToGeo(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], &CurSolution[RINEXObs->CurrentEpoch].B, &CurSolution[RINEXObs->CurrentEpoch].L, &CurSolution[RINEXObs->CurrentEpoch].H);
-								RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours = (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Hours + (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Minutes / 60.0 + RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds / 3600.0;
 								DecartToGeo(Sattelites[i].x, Sattelites[i].y, Sattelites[i].z, &Sattelites[i].B, &Sattelites[i].L, &Sattelites[i].H);
 								if(GLOIonosphere(RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours, RINEXObs->Epochs[RINEXObs->CurrentEpoch].Month, CurSolution[RINEXObs->CurrentEpoch].B, CurSolution[RINEXObs->CurrentEpoch].L, Settings.A, Settings.F107, Settings.Ap,
 											     &GLOIonData.hmax, &GLOIonData.A, &GLOIonData.Bbot, &GLOIonData.Btop))
@@ -1755,8 +1797,8 @@ int main(int argc, char **argv)
 
 							if(Settings.Ionosphere == 'S')
 							{
+                                RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours = (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Hours + (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Minutes / 60.0 + RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds / 3600.0;
 								DecartToGeo(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], &CurSolution[RINEXObs->CurrentEpoch].B, &CurSolution[RINEXObs->CurrentEpoch].L, &CurSolution[RINEXObs->CurrentEpoch].H);
-								RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours = (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Hours + (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Minutes / 60.0 + RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds / 3600.0;
 								DecartToGeo(Sattelites[i].x, Sattelites[i].y, Sattelites[i].z, &Sattelites[i].B, &Sattelites[i].L, &Sattelites[i].H);
 								if(GLOIonosphere(RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours, RINEXObs->Epochs[RINEXObs->CurrentEpoch].Month, CurSolution[RINEXObs->CurrentEpoch].B, CurSolution[RINEXObs->CurrentEpoch].L, Settings.A, Settings.F107, Settings.Ap,
 											     &GLOIonData.hmax, &GLOIonData.A, &GLOIonData.Bbot, &GLOIonData.Btop))
@@ -1772,18 +1814,100 @@ int main(int argc, char **argv)
 
 							if(Settings.Ionosphere == 'N')
 							{
-								DecartToGeo(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], &CurSolution[RINEXObs->CurrentEpoch].B, &CurSolution[RINEXObs->CurrentEpoch].L, &CurSolution[RINEXObs->CurrentEpoch].H);
 								RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours = (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Hours + (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Minutes / 60.0 + RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds / 3600.0;
-								DecartToGeo(Sattelites[i].x, Sattelites[i].y, Sattelites[i].z, &Sattelites[i].B, &Sattelites[i].L, &Sattelites[i].H);
+								DecartToGeo(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], &CurSolution[RINEXObs->CurrentEpoch].B, &CurSolution[RINEXObs->CurrentEpoch].L, &CurSolution[RINEXObs->CurrentEpoch].H);
 								pdRecvLLHdeg[0] = CurSolution[RINEXObs->CurrentEpoch].B;
 								pdRecvLLHdeg[1] = CurSolution[RINEXObs->CurrentEpoch].L;
 								pdRecvLLHdeg[2] = CurSolution[RINEXObs->CurrentEpoch].H;
+                                DecartToGeo(Sattelites[i].x, Sattelites[i].y, Sattelites[i].z, &Sattelites[i].B, &Sattelites[i].L, &Sattelites[i].H);
 								pdSatLLHdeg[0] = Sattelites[i].B;
 								pdSatLLHdeg[1] = Sattelites[i].L;
 								pdSatLLHdeg[2] = Sattelites[i].H;
 								performtest(RINEXObs->Epochs[RINEXObs->CurrentEpoch].Month, RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours, pdRecvLLHdeg, pdSatLLHdeg,
 											RINEXNav->AzGAL, &stModip, &stCCIR,
 											&dModip, &Sattelites[i].I);
+							}
+
+							if(Settings.Ionosphere == 'n')
+							{
+								azpvec[0] = (real_T)RINEXNav->AzGAL[0];
+								azpvec[1] = (real_T)RINEXNav->AzGAL[1];
+								azpvec[2] = (real_T)RINEXNav->AzGAL[2];
+								doy =  (real_T)DateToDOY(RINEXObs->Epochs[RINEXObs->NOfEpochs / 2].Year,
+												 RINEXObs->Epochs[RINEXObs->NOfEpochs / 2].Month,
+												 RINEXObs->Epochs[RINEXObs->NOfEpochs / 2].Day);
+								RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours = (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Hours + (float)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Minutes / 60.0 + RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds / 3600.0;
+								utc = (real_T)RINEXObs->Epochs[RINEXObs->CurrentEpoch].TimeInHours;
+								DecartToGeo(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], &CurSolution[RINEXObs->CurrentEpoch].B, &CurSolution[RINEXObs->CurrentEpoch].L, &CurSolution[RINEXObs->CurrentEpoch].H);
+								llhRecDeg[0] = (real_T)CurSolution[RINEXObs->CurrentEpoch].B;
+								llhRecDeg[1] = (real_T)CurSolution[RINEXObs->CurrentEpoch].L;
+								llhRecDeg[2] = (real_T)CurSolution[RINEXObs->CurrentEpoch].H;
+								DecartToGeo(Sattelites[i].x, Sattelites[i].y, Sattelites[i].z, &Sattelites[i].B, &Sattelites[i].L, &Sattelites[i].H);
+								llhSatDeg[0] = (real_T)Sattelites[i].B;
+								llhSatDeg[1] = (real_T)Sattelites[i].L;
+								llhSatDeg[2] = (real_T)Sattelites[i].H;
+                                if(Sattelites[i].Number[0] == 'G')
+								{
+									if(strstr(Settings.FrequencyMode, "SC1") || strstr(Settings.FrequencyMode, "SP1"))
+									{
+										GNSScarrierFrequency = fL1_GPS;
+									}
+
+									if(strstr(Settings.FrequencyMode, "SC2") || strstr(Settings.FrequencyMode, "SP2"))
+									{
+										GNSScarrierFrequency = fL2_GPS;
+									}
+								}
+
+								if(Sattelites[i].Number[0] == 'R')
+								{
+									if(strstr(Settings.FrequencyMode, "SC1") || strstr(Settings.FrequencyMode, "SP1"))
+									{
+										GNSScarrierFrequency = (fG1_GLO + Sattelites[i].k * dfG1_GLO);
+									}
+
+									if(strstr(Settings.FrequencyMode, "SC2") || strstr(Settings.FrequencyMode, "SP2"))
+									{
+										GNSScarrierFrequency = (fG2_GLO + Sattelites[i].k * dfG2_GLO);
+									}
+								}
+
+								if(Sattelites[i].Number[0] == 'E')
+								{
+									if(strstr(Settings.FrequencyMode, "SC1"))
+									{
+										GNSScarrierFrequency = fE1_GAL;
+									}
+
+									if(strstr(Settings.FrequencyMode, "SC2"))
+									{
+										if(Settings.GalileoDataType == 'F')
+										{
+											GNSScarrierFrequency = fE5a_GAL;
+										}
+
+										if(Settings.GalileoDataType == 'I')
+										{
+											GNSScarrierFrequency = fE5b_GAL;
+										}
+									}
+								}
+
+								if(Sattelites[i].Number[0] == 'C')
+								{
+									if(strstr(Settings.FrequencyMode, "SC1"))
+									{
+										GNSScarrierFrequency = fB1_BDS;
+									}
+
+									if(strstr(Settings.FrequencyMode, "SC2"))
+									{
+										GNSScarrierFrequency = fB2_BDS;
+									}
+								}
+								NTCM_Procedure(azpvec, &doy, &utc, llhRecDeg, llhSatDeg,
+								               &GNSScarrierFrequency, &vTEC_out, &sTEC_out, &delay_m_out, ErrorCode);
+								Sattelites[i].I = sTEC_out;
 							}
 
 							if(Settings.Ionosphere == 'B')
@@ -1811,7 +1935,6 @@ int main(int argc, char **argv)
 
 							if(Settings.Ionosphere == 'I' || Settings.Ionosphere == 'M')
 							{
-								DecartToGeo(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], &CurSolution[RINEXObs->CurrentEpoch].B, &CurSolution[RINEXObs->CurrentEpoch].L, &CurSolution[RINEXObs->CurrentEpoch].H);
 								ep[0] = (double)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Year;
 								if(ep[0] < 100.0)
 								{
@@ -1822,6 +1945,7 @@ int main(int argc, char **argv)
 								ep[3] = (double)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Hours;
 								ep[4] = (double)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Minutes;
 								ep[5] = (double)RINEXObs->Epochs[RINEXObs->CurrentEpoch].Seconds;
+                                DecartToGeo(CurSolution[RINEXObs->CurrentEpoch].Q[0], CurSolution[RINEXObs->CurrentEpoch].Q[1], CurSolution[RINEXObs->CurrentEpoch].Q[2], &CurSolution[RINEXObs->CurrentEpoch].B, &CurSolution[RINEXObs->CurrentEpoch].L, &CurSolution[RINEXObs->CurrentEpoch].H);
 								pos[0] = CurSolution[RINEXObs->CurrentEpoch].B * DegToRad;
 								pos[1] = CurSolution[RINEXObs->CurrentEpoch].L * DegToRad;
 								pos[2] = CurSolution[RINEXObs->CurrentEpoch].H;
@@ -2077,7 +2201,7 @@ int main(int argc, char **argv)
 								{
 									StandartAtmosphere(CurSolution[RINEXObs->CurrentEpoch].H, &Weather);
 								}
-								Sattelites[i].T = SaastamoinenNeil(DOY - 1, CurSolution[RINEXObs->CurrentEpoch].B, CurSolution[RINEXObs->CurrentEpoch].H * 1.0E-3, Sattelites[i].El, &Weather);
+								Sattelites[i].T = SaastamoinenNeil(DOY, CurSolution[RINEXObs->CurrentEpoch].B, CurSolution[RINEXObs->CurrentEpoch].H * 1.0E-3, Sattelites[i].El, &Weather);
 							}
 						}
 						else
