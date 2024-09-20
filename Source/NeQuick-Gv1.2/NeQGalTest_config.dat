@@ -1,0 +1,4 @@
+# a0 a1 a2 example_identifier input_dir output_dir
+236.831641 -0.39362878 0.00402826613 hig Input_data Output_data
+121.129893 0.351254133 0.0134635348 med Input_data Output_data
+2.580271 0.127628236 0.0252748384 low Input_data Output_data

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="./js/coder_app.js"></script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="./rtwreport_utils.js"></script>
+<script type="text/javascript" src="./rtwannotate.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/coder_app.css"/>
+</head>
+<body onload="srcFileOnload();">
+<pre id="code">
+<table class="code" id="codeTbl">
+<tr name="1" id="1">
+<td><a id="l1" class='ln'>1</a></td><td><span class="ct">/**</span></td></tr>
+<tr name="2" id="2">
+<td><a id="l2" class='ln'>2</a></td><td><span class="ct"> * ******************************************************************</span></td></tr>
+<tr name="3" id="3">
+<td><a id="l3" class='ln'>3</a></td><td><span class="ct"> * NTCMproj File: NTCM_Procedure_Core.c</span></td></tr>
+<tr name="4" id="4">
+<td><a id="l4" class='ln'>4</a></td><td><span class="ct"> * ******************************************************************</span></td></tr>
+<tr name="5" id="5">
+<td><a id="l5" class='ln'>5</a></td><td><span class="ct"> *  @author      Francesco Menzione</span></td></tr>
+<tr name="6" id="6">
+<td><a id="l6" class='ln'>6</a></td><td><span class="ct"> *  @reviewer    Matteo Sgammini</span></td></tr>
+<tr name="7" id="7">
+<td><a id="l7" class='ln'>7</a></td><td><span class="ct"> *  @copyright   Joint Research Centre (JRC), 2022</span></td></tr>
+<tr name="8" id="8">
+<td><a id="l8" class='ln'>8</a></td><td><span class="ct"> *  This software has been released as free and open source software</span></td></tr>
+<tr name="9" id="9">
+<td><a id="l9" class='ln'>9</a></td><td><span class="ct"> *  under the terms of the European Union Public Licence (EUPL), version 1</span></td></tr>
+<tr name="10" id="10">
+<td><a id="l10" class='ln'>10</a></td><td><span class="ct"> *  Questions? Submit your query at https://www.gsc-europa.eu/contact-us/helpdesk</span></td></tr>
+<tr name="11" id="11">
+<td><a id="l11" class='ln'>11</a></td><td><span class="ct"> *  @ingroup NTCM_Procedure</span></td></tr>
+<tr name="12" id="12">
+<td><a id="l12" class='ln'>12</a></td><td><span class="ct"> * ******************************************************************</span></td></tr>
+<tr name="13" id="13">
+<td><a id="l13" class='ln'>13</a></td><td><span class="ct"> * Code generated for Simulink model 'NTCM_Procedure'.</span></td></tr>
+<tr name="14" id="14">
+<td><a id="l14" class='ln'>14</a></td><td><span class="ct"> * Model version                  : 1.0</span></td></tr>
+<tr name="15" id="15">
+<td><a id="l15" class='ln'>15</a></td><td><span class="ct"> * Simulink Coder version         : 9.5 (R2021a) 14-Nov-2020</span></td></tr>
+<tr name="16" id="16">
+<td><a id="l16" class='ln'>16</a></td><td><span class="ct"> * C/C++ source code generated on : Tue Apr 26 16:40:10 2022</span></td></tr>
+<tr name="17" id="17">
+<td><a id="l17" class='ln'>17</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="18" id="18">
+<td><a id="l18" class='ln'>18</a></td><td><span class="ct"> * Target selection: ert.tlc</span></td></tr>
+<tr name="19" id="19">
+<td><a id="l19" class='ln'>19</a></td><td><span class="ct"> * Embedded hardware selection: Custom Processor-&gt;Custom</span></td></tr>
+<tr name="20" id="20">
+<td><a id="l20" class='ln'>20</a></td><td><span class="ct"> * Code generation objectives:</span></td></tr>
+<tr name="21" id="21">
+<td><a id="l21" class='ln'>21</a></td><td><span class="ct"> *    1. Execution efficiency</span></td></tr>
+<tr name="22" id="22">
+<td><a id="l22" class='ln'>22</a></td><td><span class="ct"> *    2. RAM efficiency</span></td></tr>
+<tr name="23" id="23">
+<td><a id="l23" class='ln'>23</a></td><td><span class="ct"> *    3. MISRA C:2012 guidelines</span></td></tr>
+<tr name="24" id="24">
+<td><a id="l24" class='ln'>24</a></td><td><span class="ct"> * Validation result: Passed (21), Warning (1), Error (0)</span></td></tr>
+<tr name="25" id="25">
+<td><a id="l25" class='ln'>25</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="26" id="26">
+<td><a id="l26" class='ln'>26</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="27" id="27">
+<td><a id="l27" class='ln'>27</a></td><td><span class="ct"> * @file</span></td></tr>
+<tr name="28" id="28">
+<td><a id="l28" class='ln'>28</a></td><td><span class="ct"> */</span></td></tr>
+<tr name="29" id="29">
+<td><a id="l29" class='ln'>29</a></td><td></td></tr>
+<tr name="30" id="30">
+<td><a id="l30" class='ln'>30</a></td><td><span class="pp">#include "NTCM_Procedure_Core.h"</span></td></tr>
+<tr name="31" id="31">
+<td><a id="l31" class='ln'>31</a></td><td></td></tr>
+<tr name="32" id="32">
+<td><a id="l32" class='ln'>32</a></td><td><span class="ct">/* Include model header file for global data */</span></td></tr>
+<tr name="33" id="33">
+<td><a id="l33" class='ln'>33</a></td><td><span class="pp">#include "NTCM_Procedure.h"</span></td></tr>
+<tr name="34" id="34">
+<td><a id="l34" class='ln'>34</a></td><td><span class="pp">#include "NTCM_Procedure_private.h"</span></td></tr>
+<tr name="35" id="35">
+<td><a id="l35" class='ln'>35</a></td><td></td></tr>
+<tr name="36" id="36">
+<td><a id="l36" class='ln'>36</a></td><td><span class="ct">/**</span></td></tr>
+<tr name="37" id="37">
+<td><a id="l37" class='ln'>37</a></td><td><span class="ct"> * ******************************************************************</span></td></tr>
+<tr name="38" id="38">
+<td><a id="l38" class='ln'>38</a></td><td><span class="ct"> * NTCM_Procedure_Core</span></td></tr>
+<tr name="39" id="39">
+<td><a id="l39" class='ln'>39</a></td><td><span class="ct"> * Output and update for atomic system: '&lt;Root&gt;/NTCM_Procedure_Core'</span></td></tr>
+<tr name="40" id="40">
+<td><a id="l40" class='ln'>40</a></td><td><span class="ct"> * ******************************************************************</span></td></tr>
+<tr name="41" id="41">
+<td><a id="l41" class='ln'>41</a></td><td><span class="ct"> * Arguments    : const real_T brdcIonoParam[3]</span></td></tr>
+<tr name="42" id="42">
+<td><a id="l42" class='ln'>42</a></td><td><span class="ct"> *                real_T Doy</span></td></tr>
+<tr name="43" id="43">
+<td><a id="l43" class='ln'>43</a></td><td><span class="ct"> *                real_T UTC</span></td></tr>
+<tr name="44" id="44">
+<td><a id="l44" class='ln'>44</a></td><td><span class="ct"> *                const real_T llhRecDeg[3]</span></td></tr>
+<tr name="45" id="45">
+<td><a id="l45" class='ln'>45</a></td><td><span class="ct"> *                const real_T llhSatDeg[3]</span></td></tr>
+<tr name="46" id="46">
+<td><a id="l46" class='ln'>46</a></td><td><span class="ct"> *                real_T fcarr</span></td></tr>
+<tr name="47" id="47">
+<td><a id="l47" class='ln'>47</a></td><td><span class="ct"> *                real_T *vTEC</span></td></tr>
+<tr name="48" id="48">
+<td><a id="l48" class='ln'>48</a></td><td><span class="ct"> *                real_T *sTEC</span></td></tr>
+<tr name="49" id="49">
+<td><a id="l49" class='ln'>49</a></td><td><span class="ct"> *                real_T *delay_m</span></td></tr>
+<tr name="50" id="50">
+<td><a id="l50" class='ln'>50</a></td><td><span class="ct"> *                uint16_T *ErrorCode</span></td></tr>
+<tr name="51" id="51">
+<td><a id="l51" class='ln'>51</a></td><td><span class="ct"> * ******************************************************************</span></td></tr>
+<tr name="52" id="52">
+<td><a id="l52" class='ln'>52</a></td><td><span class="ct"> * Return Type  : void</span></td></tr>
+<tr name="53" id="53">
+<td><a id="l53" class='ln'>53</a></td><td><span class="ct"> * ******************************************************************</span></td></tr>
+<tr name="54" id="54">
+<td><a id="l54" class='ln'>54</a></td><td><span class="ct"> * Block description for: '&lt;Root&gt;/NTCM_Procedure_Core'</span></td></tr>
+<tr name="55" id="55">
+<td><a id="l55" class='ln'>55</a></td><td><span class="ct"> *      &lt;strong&gt; FUNCTION &lt;/strong&gt;</span></td></tr>
+<tr name="56" id="56">
+<td><a id="l56" class='ln'>56</a></td><td><span class="ct"> *       The core function implements the step-by-step procedure as described in [1].</span></td></tr>
+<tr name="57" id="57">
+<td><a id="l57" class='ln'>57</a></td><td><span class="ct"> *      The "core" suffix aim at sparating this pure algorithmic block from any consistency/control</span></td></tr>
+<tr name="58" id="58">
+<td><a id="l58" class='ln'>58</a></td><td><span class="ct"> *      or I/O logic implemented externally by the user ( the check-in/checkout steps included in the</span></td></tr>
+<tr name="59" id="59">
+<td><a id="l59" class='ln'>59</a></td><td><span class="ct"> *      overall procedure are provided just an example of possible wrapping. It is worthy to remind</span></td></tr>
+<tr name="60" id="60">
+<td><a id="l60" class='ln'>60</a></td><td><span class="ct"> *      that in order to implement the ionospheric algorithm for Galileo single frequency receivers</span></td></tr>
+<tr name="61" id="61">
+<td><a id="l61" class='ln'>61</a></td><td><span class="ct"> *      for each satellite-user line-of-sight the following steps shall be followed:</span></td></tr>
+<tr name="62" id="62">
+<td><a id="l62" class='ln'>62</a></td><td><span class="ct"> *      \n 1) Obtain estimates of user receiver position (lat,long,h)_i, satellite position (lat,long,h)_j</span></td></tr>
+<tr name="63" id="63">
+<td><a id="l63" class='ln'>63</a></td><td><span class="ct"> *      \n 2) Universal Time (UT), in terms of time of day and month</span></td></tr>
+<tr name="64" id="64">
+<td><a id="l64" class='ln'>64</a></td><td><span class="ct"> *      \n 3) Obtain Effective Ionisation Level Azpar and broadcast coefficients (a_i0,a_i1,a_i2 )</span></td></tr>
+<tr name="65" id="65">
+<td><a id="l65" class='ln'>65</a></td><td><span class="ct"> *      \n 4)Calculate satellite elevation (E) and azimuth (A) angles</span></td></tr>
+<tr name="66" id="66">
+<td><a id="l66" class='ln'>66</a></td><td><span class="ct"> *      \n 5)Calculate ionospheric pierce point location for the user-to-satellite</span></td></tr>
+<tr name="67" id="67">
+<td><a id="l67" class='ln'>67</a></td><td><span class="ct"> *      \n 6) Call NTCM_G to calculate VTEC at pierce point location and local time (LT)</span></td></tr>
+<tr name="68" id="68">
+<td><a id="l68" class='ln'>68</a></td><td><span class="ct"> *      \n   (Section 2.5.4 in[1] provides a formula to convert UT to LT).</span></td></tr>
+<tr name="69" id="69">
+<td><a id="l69" class='ln'>69</a></td><td><span class="ct"> *      \n 7) Calculate ionospheric Mapping Function (MF) using the equation provided in Section 2.5.8.</span></td></tr>
+<tr name="70" id="70">
+<td><a id="l70" class='ln'>70</a></td><td><span class="ct"> *      \n 8) Convert VTEC to STEC using the ionospheric mapping function.</span></td></tr>
+<tr name="71" id="71">
+<td><a id="l71" class='ln'>71</a></td><td><span class="ct"> *      \n 9) Convert STEC to time delay using Eq. 1 in[1] for the corresponding frequency to obtain</span></td></tr>
+<tr name="72" id="72">
+<td><a id="l72" class='ln'>72</a></td><td><span class="ct"> *      \n the correction</span></td></tr>
+<tr name="73" id="73">
+<td><a id="l73" class='ln'>73</a></td><td><span class="ct"> *      \n 10) Apply correction to selected link</span></td></tr>
+<tr name="74" id="74">
+<td><a id="l74" class='ln'>74</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="75" id="75">
+<td><a id="l75" class='ln'>75</a></td><td><span class="ct"> *      @param[in] AzPara    =&gt; alpha0, alpha1, and alpha2 Iono Parameters broadcasted by Galileo</span></td></tr>
+<tr name="76" id="76">
+<td><a id="l76" class='ln'>76</a></td><td><span class="ct"> *      @param[in] Doy    =&gt; Day of the year</span></td></tr>
+<tr name="77" id="77">
+<td><a id="l77" class='ln'>77</a></td><td><span class="ct"> *      @param[in] UTC     =&gt; UTC Time in hours (0 for midnight)</span></td></tr>
+<tr name="78" id="78">
+<td><a id="l78" class='ln'>78</a></td><td><span class="ct"> *      @param[in] llhRecDeg     =&gt; User position in Longitude[rad], Latitude[rad], height[m]</span></td></tr>
+<tr name="79" id="79">
+<td><a id="l79" class='ln'>79</a></td><td><span class="ct"> *      @param[in] llhSatDeg    =&gt; Satellite position in Longitude[rad], Latitude[rad], height[m]</span></td></tr>
+<tr name="80" id="80">
+<td><a id="l80" class='ln'>80</a></td><td><span class="ct"> *      @param[in] fcarr    =&gt; Carrier frequency</span></td></tr>
+<tr name="81" id="81">
+<td><a id="l81" class='ln'>81</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="82" id="82">
+<td><a id="l82" class='ln'>82</a></td><td><span class="ct"> *      @param[out] vTEC    =&gt; Vertical TEC</span></td></tr>
+<tr name="83" id="83">
+<td><a id="l83" class='ln'>83</a></td><td><span class="ct"> *      @param[out] sTEC    =&gt; Slant TEC</span></td></tr>
+<tr name="84" id="84">
+<td><a id="l84" class='ln'>84</a></td><td><span class="ct"> *      @param[out] delay_m    =&gt; Signal propagation time delay in [m]</span></td></tr>
+<tr name="85" id="85">
+<td><a id="l85" class='ln'>85</a></td><td><span class="ct"> *      @param[out] ErrorCode    =&gt; Error Code (optional)</span></td></tr>
+<tr name="86" id="86">
+<td><a id="l86" class='ln'>86</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="87" id="87">
+<td><a id="l87" class='ln'>87</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="88" id="88">
+<td><a id="l88" class='ln'>88</a></td><td><span class="ct"> *    &lt;strong&gt; Tuning Constant &lt;/strong&gt;</span></td></tr>
+<tr name="89" id="89">
+<td><a id="l89" class='ln'>89</a></td><td><span class="ct"> *     &lt;table&gt;</span></td></tr>
+<tr name="90" id="90">
+<td><a id="l90" class='ln'>90</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;th&gt; Label                      &lt;th&gt;Value</span></td></tr>
+<tr name="91" id="91">
+<td><a id="l91" class='ln'>91</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; ErrCodeEl &lt;td&gt; 2U</span></td></tr>
+<tr name="92" id="92">
+<td><a id="l92" class='ln'>92</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; ErrCodeEl    &lt;td&gt;2U</span></td></tr>
+<tr name="93" id="93">
+<td><a id="l93" class='ln'>93</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; ErrCodeIn    &lt;td&gt;1U</span></td></tr>
+<tr name="94" id="94">
+<td><a id="l94" class='ln'>94</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; ErrCodeOut   &lt;td&gt;3U</span></td></tr>
+<tr name="95" id="95">
+<td><a id="l95" class='ln'>95</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; IPP_RefAltitude &lt;td&gt; 450000.0</span></td></tr>
+<tr name="96" id="96">
+<td><a id="l96" class='ln'>96</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; LTd     &lt;td&gt;14.0</span></td></tr>
+<tr name="97" id="97">
+<td><a id="l97" class='ln'>97</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; NoErr     &lt;td&gt;0U</span></td></tr>
+<tr name="98" id="98">
+<td><a id="l98" class='ln'>98</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; Pf1     &lt;td&gt;0.4</span></td></tr>
+<tr name="99" id="99">
+<td><a id="l99" class='ln'>99</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; doy_DAV    &lt;td&gt;18.0</span></td></tr>
+<tr name="100" id="100">
+<td><a id="l100" class='ln'>100</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; doy_DSAV    &lt;td&gt;6.0</span></td></tr>
+<tr name="101" id="101">
+<td><a id="l101" class='ln'>101</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; lamGNP_deg   &lt;td&gt;-71.78</span></td></tr>
+<tr name="102" id="102">
+<td><a id="l102" class='ln'>102</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; phiGNP_deg   &lt;td&gt;79.74</span></td></tr>
+<tr name="103" id="103">
+<td><a id="l103" class='ln'>103</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; phi_c1    &lt;td&gt;16.0</span></td></tr>
+<tr name="104" id="104">
+<td><a id="l104" class='ln'>104</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; phi_c2    &lt;td&gt;-10.0</span></td></tr>
+<tr name="105" id="105">
+<td><a id="l105" class='ln'>105</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; sigma_c1    &lt;td&gt;12.0</span></td></tr>
+<tr name="106" id="106">
+<td><a id="l106" class='ln'>106</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; sigma_c2    &lt;td&gt;13.0</span></td></tr>
+<tr name="107" id="107">
+<td><a id="l107" class='ln'>107</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; k1     &lt;td&gt;0.92519</span></td></tr>
+<tr name="108" id="108">
+<td><a id="l108" class='ln'>108</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; k10     &lt;td&gt;1.20556</span></td></tr>
+<tr name="109" id="109">
+<td><a id="l109" class='ln'>109</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; k11     &lt;td&gt;1.41808</span></td></tr>
+<tr name="110" id="110">
+<td><a id="l110" class='ln'>110</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; k12     &lt;td&gt;0.13985</span></td></tr>
+<tr name="111" id="111">
+<td><a id="l111" class='ln'>111</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; k2     &lt;td&gt;0.16951</span></td></tr>
+<tr name="112" id="112">
+<td><a id="l112" class='ln'>112</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; k3     &lt;td&gt;0.00443</span></td></tr>
+<tr name="113" id="113">
+<td><a id="l113" class='ln'>113</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; k4     &lt;td&gt;0.06626</span></td></tr>
+<tr name="114" id="114">
+<td><a id="l114" class='ln'>114</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; k5     &lt;td&gt;0.00899</span></td></tr>
+<tr name="115" id="115">
+<td><a id="l115" class='ln'>115</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; k6     &lt;td&gt;0.21289</span></td></tr>
+<tr name="116" id="116">
+<td><a id="l116" class='ln'>116</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; k7     &lt;td&gt;-0.15414</span></td></tr>
+<tr name="117" id="117">
+<td><a id="l117" class='ln'>117</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; k8     &lt;td&gt;-0.38439</span></td></tr>
+<tr name="118" id="118">
+<td><a id="l118" class='ln'>118</a></td><td><span class="ct"> *    &lt;tr&gt;&lt;td&gt; k9     &lt;td&gt;1.14023</span></td></tr>
+<tr name="119" id="119">
+<td><a id="l119" class='ln'>119</a></td><td><span class="ct"> *   &lt;/table&gt;</span></td></tr>
+<tr name="120" id="120">
+<td><a id="l120" class='ln'>120</a></td><td><span class="ct"> *   @ingroup NTCM_Procedure</span></td></tr>
+<tr name="121" id="121">
+<td><a id="l121" class='ln'>121</a></td><td><span class="ct"> *   @file</span></td></tr>
+<tr name="122" id="122">
+<td><a id="l122" class='ln'>122</a></td><td><span class="ct"> * ******************************************************************</span></td></tr>
+<tr name="123" id="123">
+<td><a id="l123" class='ln'>123</a></td><td><span class="ct"> */</span></td></tr>
+<tr name="124" id="124">
+<td><a id="l124" class='ln'>124</a></td><td><span class="kw">void</span> <a id="124c6" class="tk">NTCM_Procedure_Core</a>(<span class="kw">const</span> <a id="124c32" class="tk">real_T</a> <a id="124c39" class="tk">brdcIonoParam</a>[3], <a id="124c57" class="tk">real_T</a> <a id="124c64" class="tk">Doy</a>, <a id="124c69" class="tk">real_T</a> <a id="124c76" class="tk">UTC</a>,</td></tr>
+<tr name="125" id="125">
+<td><a id="l125" class='ln'>125</a></td><td>  <span class="kw">const</span> <a id="125c9" class="tk">real_T</a> <a id="125c16" class="tk">llhRecDeg</a>[3], <span class="kw">const</span> <a id="125c36" class="tk">real_T</a> <a id="125c43" class="tk">llhSatDeg</a>[3], <a id="125c57" class="tk">real_T</a> <a id="125c64" class="tk">fcarr</a>, <a id="125c71" class="tk">real_T</a></td></tr>
+<tr name="126" id="126">
+<td><a id="l126" class='ln'>126</a></td><td>  <a id="126c3" class="tk">*</a><a id="126c4" class="tk">vTEC</a>, <a id="126c10" class="tk">real_T</a> <a id="126c17" class="tk">*</a><a id="126c18" class="tk">sTEC</a>, <a id="126c24" class="tk">real_T</a> <a id="126c31" class="tk">*</a><a id="126c32" class="tk">delay_m</a>, <a id="126c41" class="tk">uint16_T</a> <a id="126c50" class="tk">*</a><a id="126c51" class="tk">ErrorCode</a>)</td></tr>
+<tr name="127" id="127">
+<td><a id="l127" class='ln'>127</a></td><td><span class="br">{</span></td></tr>
+<tr name="128" id="128">
+<td><a id="l128" class='ln'>128</a></td><td>  <a id="128c3" class="tk">real_T</a> <a id="128c10" class="tk">lOut_NTCM_Coeff_</a>[12];</td></tr>
+<tr name="129" id="129">
+<td><a id="l129" class='ln'>129</a></td><td>  <a id="129c3" class="tk">real_T</a> <a id="129c10" class="tk">lOut_Physiscal_Const_</a>[10];</td></tr>
+<tr name="130" id="130">
+<td><a id="l130" class='ln'>130</a></td><td>  <a id="130c3" class="tk">real_T</a> <a id="130c10" class="tk">lOut_llhRad</a>[3];</td></tr>
+<tr name="131" id="131">
+<td><a id="l131" class='ln'>131</a></td><td>  <a id="131c3" class="tk">real_T</a> <a id="131c10" class="tk">lOut_llhRad_a</a>[3];</td></tr>
+<tr name="132" id="132">
+<td><a id="l132" class='ln'>132</a></td><td>  <a id="132c3" class="tk">real_T</a> <a id="132c10" class="tk">lOut_losVec</a>[3];</td></tr>
+<tr name="133" id="133">
+<td><a id="l133" class='ln'>133</a></td><td>  <a id="133c3" class="tk">real_T</a> <a id="133c10" class="tk">lOut_xyz</a>[3];</td></tr>
+<tr name="134" id="134">
+<td><a id="l134" class='ln'>134</a></td><td>  <a id="134c3" class="tk">real_T</a> <a id="134c10" class="tk">lOut_xyz_i</a>[3];</td></tr>
+<tr name="135" id="135">
+<td><a id="l135" class='ln'>135</a></td><td>  <a id="135c3" class="tk">real_T</a> <a id="135c10" class="tk">lOut_IppCoord_</a>[2];</td></tr>
+<tr name="136" id="136">
+<td><a id="l136" class='ln'>136</a></td><td>  <a id="136c3" class="tk">real_T</a> <a id="136c10" class="tk">lOut_El_check_out_</a>;</td></tr>
+<tr name="137" id="137">
+<td><a id="l137" class='ln'>137</a></td><td>  <a id="137c3" class="tk">real_T</a> <a id="137c10" class="tk">lOut_LT</a>;</td></tr>
+<tr name="138" id="138">
+<td><a id="l138" class='ln'>138</a></td><td>  <a id="138c3" class="tk">real_T</a> <a id="138c10" class="tk">lOut_SvDoAAzRad_</a>;</td></tr>
+<tr name="139" id="139">
+<td><a id="l139" class='ln'>139</a></td><td>  <a id="139c3" class="tk">real_T</a> <a id="139c10" class="tk">lOut_SvDoAEleRad_</a>;</td></tr>
+<tr name="140" id="140">
+<td><a id="l140" class='ln'>140</a></td><td>  <a id="140c3" class="tk">lOut_llhRad_a</a>[2] = <a id="140c22" class="tk">llhRecDeg</a>[2];</td></tr>
+<tr name="141" id="141">
+<td><a id="l141" class='ln'>141</a></td><td>  <a id="141c3" class="tk">lOut_llhRad_a</a>[0] = 0.017453292519943295 <a id="141c43" class="tk">*</a> <a id="141c45" class="tk">llhRecDeg</a>[0];</td></tr>
+<tr name="142" id="142">
+<td><a id="l142" class='ln'>142</a></td><td>  <a id="142c3" class="tk">lOut_llhRad_a</a>[1] = 0.017453292519943295 <a id="142c43" class="tk">*</a> <a id="142c45" class="tk">llhRecDeg</a>[1];</td></tr>
+<tr name="143" id="143">
+<td><a id="l143" class='ln'>143</a></td><td></td></tr>
+<tr name="144" id="144">
+<td><a id="l144" class='ln'>144</a></td><td>  <span class="ct">/*</span></td></tr>
+<tr name="145" id="145">
+<td><a id="l145" class='ln'>145</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/llh2xyz1':</span></td></tr>
+<tr name="146" id="146">
+<td><a id="l146" class='ln'>146</a></td><td><span class="ct">   *     @ingroup NTCM_Procedure</span></td></tr>
+<tr name="147" id="147">
+<td><a id="l147" class='ln'>147</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="148" id="148">
+<td><a id="l148" class='ln'>148</a></td><td><span class="ct">   *     &lt;strong&gt; FUNCTION &lt;/strong&gt;</span></td></tr>
+<tr name="149" id="149">
+<td><a id="l149" class='ln'>149</a></td><td><span class="ct">   *     This module converts the receiver geodetic WGS84 coordinates to ECEF (Described in Sec.2.5.1)</span></td></tr>
+<tr name="150" id="150">
+<td><a id="l150" class='ln'>150</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="151" id="151">
+<td><a id="l151" class='ln'>151</a></td><td><span class="ct">   *     @param[in] llh 		=&gt; WGS84 coordinates in Latitude[rad], Longitude[rad], height[m]</span></td></tr>
+<tr name="152" id="152">
+<td><a id="l152" class='ln'>152</a></td><td><span class="ct">   *     @param[out] xyz 		=&gt; ECEF coordinates in x[m], y[m], z[m]</span></td></tr>
+<tr name="153" id="153">
+<td><a id="l153" class='ln'>153</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="154" id="154">
+<td><a id="l154" class='ln'>154</a></td><td><span class="ct">   *     @file</span></td></tr>
+<tr name="155" id="155">
+<td><a id="l155" class='ln'>155</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="156" id="156">
+<td><a id="l156" class='ln'>156</a></td><td>  <a id="156c3" class="tk">llh2xyz_Rec</a>(<a id="156c15" class="tk">lOut_llhRad_a</a>, <a id="156c30" class="tk">lOut_xyz_i</a>);</td></tr>
+<tr name="157" id="157">
+<td><a id="l157" class='ln'>157</a></td><td>  <a id="157c3" class="tk">lOut_llhRad</a>[2] = <a id="157c20" class="tk">llhSatDeg</a>[2];</td></tr>
+<tr name="158" id="158">
+<td><a id="l158" class='ln'>158</a></td><td>  <a id="158c3" class="tk">lOut_llhRad</a>[0] = 0.017453292519943295 <a id="158c41" class="tk">*</a> <a id="158c43" class="tk">llhSatDeg</a>[0];</td></tr>
+<tr name="159" id="159">
+<td><a id="l159" class='ln'>159</a></td><td>  <a id="159c3" class="tk">lOut_llhRad</a>[1] = 0.017453292519943295 <a id="159c41" class="tk">*</a> <a id="159c43" class="tk">llhSatDeg</a>[1];</td></tr>
+<tr name="160" id="160">
+<td><a id="l160" class='ln'>160</a></td><td></td></tr>
+<tr name="161" id="161">
+<td><a id="l161" class='ln'>161</a></td><td>  <span class="ct">/*</span></td></tr>
+<tr name="162" id="162">
+<td><a id="l162" class='ln'>162</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/llh2xyz2':</span></td></tr>
+<tr name="163" id="163">
+<td><a id="l163" class='ln'>163</a></td><td><span class="ct">   *    @ingroup NTCM_Procedure</span></td></tr>
+<tr name="164" id="164">
+<td><a id="l164" class='ln'>164</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="165" id="165">
+<td><a id="l165" class='ln'>165</a></td><td><span class="ct">   *     &lt;strong&gt; FUNCTION &lt;/strong&gt;</span></td></tr>
+<tr name="166" id="166">
+<td><a id="l166" class='ln'>166</a></td><td><span class="ct">   *     This module converts the SV geodetic WGS84 coordinates to ECEF (Described in Sec.2.5.1)</span></td></tr>
+<tr name="167" id="167">
+<td><a id="l167" class='ln'>167</a></td><td><span class="ct">   *     @param[in] llh 		=&gt; WGS84 coordinates in Latitude[rad], Longitude[rad], height[m]</span></td></tr>
+<tr name="168" id="168">
+<td><a id="l168" class='ln'>168</a></td><td><span class="ct">   *     @param[out] xyz 		=&gt; ECEF coordinates in x[m], y[m], z[m]</span></td></tr>
+<tr name="169" id="169">
+<td><a id="l169" class='ln'>169</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="170" id="170">
+<td><a id="l170" class='ln'>170</a></td><td><span class="ct">   *     @file</span></td></tr>
+<tr name="171" id="171">
+<td><a id="l171" class='ln'>171</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="172" id="172">
+<td><a id="l172" class='ln'>172</a></td><td>  <a id="172c3" class="tk">llh2xyz_Sat</a>(<a id="172c15" class="tk">lOut_llhRad</a>, <a id="172c28" class="tk">lOut_xyz</a>);</td></tr>
+<tr name="173" id="173">
+<td><a id="l173" class='ln'>173</a></td><td>  <a id="173c3" class="tk">lOut_losVec</a>[0] = <a id="173c20" class="tk">lOut_xyz</a>[0] <a id="173c32" class="tk">-</a> <a id="173c34" class="tk">lOut_xyz_i</a>[0];</td></tr>
+<tr name="174" id="174">
+<td><a id="l174" class='ln'>174</a></td><td>  <a id="174c3" class="tk">lOut_losVec</a>[1] = <a id="174c20" class="tk">lOut_xyz</a>[1] <a id="174c32" class="tk">-</a> <a id="174c34" class="tk">lOut_xyz_i</a>[1];</td></tr>
+<tr name="175" id="175">
+<td><a id="l175" class='ln'>175</a></td><td>  <a id="175c3" class="tk">lOut_losVec</a>[2] = <a id="175c20" class="tk">lOut_xyz</a>[2] <a id="175c32" class="tk">-</a> <a id="175c34" class="tk">lOut_xyz_i</a>[2];</td></tr>
+<tr name="176" id="176">
+<td><a id="l176" class='ln'>176</a></td><td></td></tr>
+<tr name="177" id="177">
+<td><a id="l177" class='ln'>177</a></td><td>  <span class="ct">/*</span></td></tr>
+<tr name="178" id="178">
+<td><a id="l178" class='ln'>178</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/ComputeDoA':</span></td></tr>
+<tr name="179" id="179">
+<td><a id="l179" class='ln'>179</a></td><td><span class="ct">   *     @ingroup NTCM_Procedure</span></td></tr>
+<tr name="180" id="180">
+<td><a id="l180" class='ln'>180</a></td><td><span class="ct">   *     &lt;strong&gt; FUNCTION &lt;/strong&gt;</span></td></tr>
+<tr name="181" id="181">
+<td><a id="l181" class='ln'>181</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="182" id="182">
+<td><a id="l182" class='ln'>182</a></td><td><span class="ct">   *     This module computes the satellite azimuth and elevation angles (Described in Section 2.5.2)</span></td></tr>
+<tr name="183" id="183">
+<td><a id="l183" class='ln'>183</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="184" id="184">
+<td><a id="l184" class='ln'>184</a></td><td><span class="ct">   *     @param[in] losVec 		=&gt; Line of sight vector</span></td></tr>
+<tr name="185" id="185">
+<td><a id="l185" class='ln'>185</a></td><td><span class="ct">   *     @param[in] llhUserRad 		=&gt;  Receiver position Latitude [rad], Longitude[rad], height[m]</span></td></tr>
+<tr name="186" id="186">
+<td><a id="l186" class='ln'>186</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="187" id="187">
+<td><a id="l187" class='ln'>187</a></td><td><span class="ct">   *     @param[out] SvDoAEleRad 		=&gt;  Line of sight Elevation</span></td></tr>
+<tr name="188" id="188">
+<td><a id="l188" class='ln'>188</a></td><td><span class="ct">   *     @param[out] SvDoAAzRad  		=&gt;  Line of sight Azimuth</span></td></tr>
+<tr name="189" id="189">
+<td><a id="l189" class='ln'>189</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="190" id="190">
+<td><a id="l190" class='ln'>190</a></td><td><span class="ct">   *  @file</span></td></tr>
+<tr name="191" id="191">
+<td><a id="l191" class='ln'>191</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="192" id="192">
+<td><a id="l192" class='ln'>192</a></td><td>  <a id="192c3" class="tk">ComputeDoA</a>(<a id="192c14" class="tk">lOut_losVec</a>, <a id="192c27" class="tk">lOut_llhRad_a</a>, <a id="192c42" class="tk">&amp;</a><a id="192c43" class="tk">lOut_SvDoAEleRad_</a>, <a id="192c62" class="tk">&amp;</a><a id="192c63" class="tk">lOut_SvDoAAzRad_</a>);</td></tr>
+<tr name="193" id="193">
+<td><a id="l193" class='ln'>193</a></td><td></td></tr>
+<tr name="194" id="194">
+<td><a id="l194" class='ln'>194</a></td><td>  <span class="ct">/*</span></td></tr>
+<tr name="195" id="195">
+<td><a id="l195" class='ln'>195</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/ElevationCheck':</span></td></tr>
+<tr name="196" id="196">
+<td><a id="l196" class='ln'>196</a></td><td><span class="ct">   *     &lt;strong&gt; FUNCTION &lt;/strong&gt;</span></td></tr>
+<tr name="197" id="197">
+<td><a id="l197" class='ln'>197</a></td><td><span class="ct">   *     Positivity elevetaion check</span></td></tr>
+<tr name="198" id="198">
+<td><a id="l198" class='ln'>198</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="199" id="199">
+<td><a id="l199" class='ln'>199</a></td><td><span class="ct">   *     @param[in] El_check_in/t/t Satellite Elevation [rad]</span></td></tr>
+<tr name="200" id="200">
+<td><a id="l200" class='ln'>200</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="201" id="201">
+<td><a id="l201" class='ln'>201</a></td><td><span class="ct">   *     @param[out] El_check_out/t/t Limited Elevation</span></td></tr>
+<tr name="202" id="202">
+<td><a id="l202" class='ln'>202</a></td><td><span class="ct">   *     @param[out] El_ErrCOde /t/t Elevation out of range error code</span></td></tr>
+<tr name="203" id="203">
+<td><a id="l203" class='ln'>203</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="204" id="204">
+<td><a id="l204" class='ln'>204</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="205" id="205">
+<td><a id="l205" class='ln'>205</a></td><td><span class="ct"></span></td></tr>
+<tr name="206" id="206">
+<td><a id="l206" class='ln'>206</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="207" id="207">
+<td><a id="l207" class='ln'>207</a></td><td>  <a id="207c3" class="tk">ElevetionCheck</a>(<a id="207c18" class="tk">lOut_SvDoAEleRad_</a>, <a id="207c37" class="tk">&amp;</a><a id="207c38" class="tk">lOut_El_check_out_</a>, <a id="207c58" class="tk">ErrorCode</a>);</td></tr>
+<tr name="208" id="208">
+<td><a id="l208" class='ln'>208</a></td><td></td></tr>
+<tr name="209" id="209">
+<td><a id="l209" class='ln'>209</a></td><td>  <span class="ct">/*</span></td></tr>
+<tr name="210" id="210">
+<td><a id="l210" class='ln'>210</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/getIonoPiercePoint':</span></td></tr>
+<tr name="211" id="211">
+<td><a id="l211" class='ln'>211</a></td><td><span class="ct">   *        @ingroup NTCM_Procedure</span></td></tr>
+<tr name="212" id="212">
+<td><a id="l212" class='ln'>212</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="213" id="213">
+<td><a id="l213" class='ln'>213</a></td><td><span class="ct">   *  &lt;strong&gt; FUNCTION &lt;/strong&gt;</span></td></tr>
+<tr name="214" id="214">
+<td><a id="l214" class='ln'>214</a></td><td><span class="ct">   *     This module computes the geographic latitude and longitude of the Ionospheric Pierce Point (IPP) (Described in Section 2.5.2).</span></td></tr>
+<tr name="215" id="215">
+<td><a id="l215" class='ln'>215</a></td><td><span class="ct">   *     IPP is the point where the Line of Sight (LoS) intersects the reference ionospheric layer, this latter set at an altitude of 450Km.</span></td></tr>
+<tr name="216" id="216">
+<td><a id="l216" class='ln'>216</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="217" id="217">
+<td><a id="l217" class='ln'>217</a></td><td><span class="ct">   *     @param[in] llhUser 		=&gt; Receiver position in  Latitude[rad], Longitude[rad], height[m]</span></td></tr>
+<tr name="218" id="218">
+<td><a id="l218" class='ln'>218</a></td><td><span class="ct">   *     @param[in] ElRad 		=&gt; Elevation (DoA) [rad]</span></td></tr>
+<tr name="219" id="219">
+<td><a id="l219" class='ln'>219</a></td><td><span class="ct">   *     @param[in] AzRad 		=&gt; Azimuth (DoA) [rad]</span></td></tr>
+<tr name="220" id="220">
+<td><a id="l220" class='ln'>220</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="221" id="221">
+<td><a id="l221" class='ln'>221</a></td><td><span class="ct">   *     @param [out] IppCoord 		=&gt;Pierce Point coordinates in  Latitude[rad], Longitude[rad]</span></td></tr>
+<tr name="222" id="222">
+<td><a id="l222" class='ln'>222</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="223" id="223">
+<td><a id="l223" class='ln'>223</a></td><td><span class="ct">   *  @file</span></td></tr>
+<tr name="224" id="224">
+<td><a id="l224" class='ln'>224</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="225" id="225">
+<td><a id="l225" class='ln'>225</a></td><td>  <a id="225c3" class="tk">getIonoPiercePoint</a>(<a id="225c22" class="tk">lOut_llhRad_a</a>, <a id="225c37" class="tk">lOut_El_check_out_</a>, <a id="225c57" class="tk">lOut_SvDoAAzRad_</a>,</td></tr>
+<tr name="226" id="226">
+<td><a id="l226" class='ln'>226</a></td><td>                     <a id="226c22" class="tk">lOut_IppCoord_</a>);</td></tr>
+<tr name="227" id="227">
+<td><a id="l227" class='ln'>227</a></td><td></td></tr>
+<tr name="228" id="228">
+<td><a id="l228" class='ln'>228</a></td><td>  <span class="ct">/*</span></td></tr>
+<tr name="229" id="229">
+<td><a id="l229" class='ln'>229</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/LocalTime':</span></td></tr>
+<tr name="230" id="230">
+<td><a id="l230" class='ln'>230</a></td><td><span class="ct">   *     @ingroup NTCM_Procedure</span></td></tr>
+<tr name="231" id="231">
+<td><a id="l231" class='ln'>231</a></td><td><span class="ct">   *     FUNCTION:</span></td></tr>
+<tr name="232" id="232">
+<td><a id="l232" class='ln'>232</a></td><td><span class="ct">   *     ------</span></td></tr>
+<tr name="233" id="233">
+<td><a id="l233" class='ln'>233</a></td><td><span class="ct">   *     This module computes the local time LT given the pierce point longitude and UT.</span></td></tr>
+<tr name="234" id="234">
+<td><a id="l234" class='ln'>234</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="235" id="235">
+<td><a id="l235" class='ln'>235</a></td><td><span class="ct">   *     @param[in] IppPosRad 		=&gt; Pierce Point Position in  Latitude[rad], Longitude[rad], height[m]</span></td></tr>
+<tr name="236" id="236">
+<td><a id="l236" class='ln'>236</a></td><td><span class="ct">   *     @param[in] UTC		=&gt; utc time</span></td></tr>
+<tr name="237" id="237">
+<td><a id="l237" class='ln'>237</a></td><td><span class="ct">   *     @param[out] LT		=&gt; Local Time</span></td></tr>
+<tr name="238" id="238">
+<td><a id="l238" class='ln'>238</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="239" id="239">
+<td><a id="l239" class='ln'>239</a></td><td><span class="ct">   *  @file</span></td></tr>
+<tr name="240" id="240">
+<td><a id="l240" class='ln'>240</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="241" id="241">
+<td><a id="l241" class='ln'>241</a></td><td>  <a id="241c3" class="tk">lOut_LT</a> = <a id="241c13" class="tk">ComputeLocalTime</a>(<a id="241c30" class="tk">lOut_IppCoord_</a>, <a id="241c46" class="tk">UTC</a>);</td></tr>
+<tr name="242" id="242">
+<td><a id="l242" class='ln'>242</a></td><td></td></tr>
+<tr name="243" id="243">
+<td><a id="l243" class='ln'>243</a></td><td>  <span class="ct">/*</span></td></tr>
+<tr name="244" id="244">
+<td><a id="l244" class='ln'>244</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/NTCM_Coeff_':</span></td></tr>
+<tr name="245" id="245">
+<td><a id="l245" class='ln'>245</a></td><td><span class="ct">   *  Allocate NTCM Coeff as Input Vector</span></td></tr>
+<tr name="246" id="246">
+<td><a id="l246" class='ln'>246</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="247" id="247">
+<td><a id="l247" class='ln'>247</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/NTCM_Coeff_':</span></td></tr>
+<tr name="248" id="248">
+<td><a id="l248" class='ln'>248</a></td><td><span class="ct">   *  Allocate NTCM Coeff as Input Vector</span></td></tr>
+<tr name="249" id="249">
+<td><a id="l249" class='ln'>249</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="250" id="250">
+<td><a id="l250" class='ln'>250</a></td><td>  <a id="250c3" class="tk">lOut_NTCM_Coeff_</a>[0] = <a id="250c25" class="tk">k1</a>;</td></tr>
+<tr name="251" id="251">
+<td><a id="l251" class='ln'>251</a></td><td>  <a id="251c3" class="tk">lOut_NTCM_Coeff_</a>[1] = <a id="251c25" class="tk">k2</a>;</td></tr>
+<tr name="252" id="252">
+<td><a id="l252" class='ln'>252</a></td><td>  <a id="252c3" class="tk">lOut_NTCM_Coeff_</a>[2] = <a id="252c25" class="tk">k3</a>;</td></tr>
+<tr name="253" id="253">
+<td><a id="l253" class='ln'>253</a></td><td>  <a id="253c3" class="tk">lOut_NTCM_Coeff_</a>[3] = <a id="253c25" class="tk">k4</a>;</td></tr>
+<tr name="254" id="254">
+<td><a id="l254" class='ln'>254</a></td><td>  <a id="254c3" class="tk">lOut_NTCM_Coeff_</a>[4] = <a id="254c25" class="tk">k5</a>;</td></tr>
+<tr name="255" id="255">
+<td><a id="l255" class='ln'>255</a></td><td>  <a id="255c3" class="tk">lOut_NTCM_Coeff_</a>[5] = <a id="255c25" class="tk">k6</a>;</td></tr>
+<tr name="256" id="256">
+<td><a id="l256" class='ln'>256</a></td><td>  <a id="256c3" class="tk">lOut_NTCM_Coeff_</a>[6] = <a id="256c25" class="tk">k7</a>;</td></tr>
+<tr name="257" id="257">
+<td><a id="l257" class='ln'>257</a></td><td>  <a id="257c3" class="tk">lOut_NTCM_Coeff_</a>[7] = <a id="257c25" class="tk">k8</a>;</td></tr>
+<tr name="258" id="258">
+<td><a id="l258" class='ln'>258</a></td><td>  <a id="258c3" class="tk">lOut_NTCM_Coeff_</a>[8] = <a id="258c25" class="tk">k9</a>;</td></tr>
+<tr name="259" id="259">
+<td><a id="l259" class='ln'>259</a></td><td>  <a id="259c3" class="tk">lOut_NTCM_Coeff_</a>[9] = <a id="259c25" class="tk">k10</a>;</td></tr>
+<tr name="260" id="260">
+<td><a id="l260" class='ln'>260</a></td><td>  <a id="260c3" class="tk">lOut_NTCM_Coeff_</a>[10] = <a id="260c26" class="tk">k11</a>;</td></tr>
+<tr name="261" id="261">
+<td><a id="l261" class='ln'>261</a></td><td>  <a id="261c3" class="tk">lOut_NTCM_Coeff_</a>[11] = <a id="261c26" class="tk">k12</a>;</td></tr>
+<tr name="262" id="262">
+<td><a id="l262" class='ln'>262</a></td><td></td></tr>
+<tr name="263" id="263">
+<td><a id="l263" class='ln'>263</a></td><td>  <span class="ct">/*</span></td></tr>
+<tr name="264" id="264">
+<td><a id="l264" class='ln'>264</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/Physiscal_Const_':</span></td></tr>
+<tr name="265" id="265">
+<td><a id="l265" class='ln'>265</a></td><td><span class="ct">   *  Allocate NTCM Physiscal Const as Input Vector</span></td></tr>
+<tr name="266" id="266">
+<td><a id="l266" class='ln'>266</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="267" id="267">
+<td><a id="l267" class='ln'>267</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/Physiscal_Const_':</span></td></tr>
+<tr name="268" id="268">
+<td><a id="l268" class='ln'>268</a></td><td><span class="ct">   *  Allocate NTCM Physiscal Const as Input Vector</span></td></tr>
+<tr name="269" id="269">
+<td><a id="l269" class='ln'>269</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="270" id="270">
+<td><a id="l270" class='ln'>270</a></td><td>  <a id="270c3" class="tk">lOut_Physiscal_Const_</a>[0] = <a id="270c30" class="tk">Pf1</a>;</td></tr>
+<tr name="271" id="271">
+<td><a id="l271" class='ln'>271</a></td><td>  <a id="271c3" class="tk">lOut_Physiscal_Const_</a>[1] = <a id="271c30" class="tk">LTd</a>;</td></tr>
+<tr name="272" id="272">
+<td><a id="l272" class='ln'>272</a></td><td>  <a id="272c3" class="tk">lOut_Physiscal_Const_</a>[2] = <a id="272c30" class="tk">doy_DAV</a>;</td></tr>
+<tr name="273" id="273">
+<td><a id="l273" class='ln'>273</a></td><td>  <a id="273c3" class="tk">lOut_Physiscal_Const_</a>[3] = <a id="273c30" class="tk">doy_DSAV</a>;</td></tr>
+<tr name="274" id="274">
+<td><a id="l274" class='ln'>274</a></td><td>  <a id="274c3" class="tk">lOut_Physiscal_Const_</a>[4] = <a id="274c30" class="tk">phi_c1</a>;</td></tr>
+<tr name="275" id="275">
+<td><a id="l275" class='ln'>275</a></td><td>  <a id="275c3" class="tk">lOut_Physiscal_Const_</a>[5] = <a id="275c30" class="tk">phi_c2</a>;</td></tr>
+<tr name="276" id="276">
+<td><a id="l276" class='ln'>276</a></td><td>  <a id="276c3" class="tk">lOut_Physiscal_Const_</a>[6] = <a id="276c30" class="tk">sigma_c1</a>;</td></tr>
+<tr name="277" id="277">
+<td><a id="l277" class='ln'>277</a></td><td>  <a id="277c3" class="tk">lOut_Physiscal_Const_</a>[7] = <a id="277c30" class="tk">sigma_c2</a>;</td></tr>
+<tr name="278" id="278">
+<td><a id="l278" class='ln'>278</a></td><td>  <a id="278c3" class="tk">lOut_Physiscal_Const_</a>[8] = <a id="278c30" class="tk">phiGNP_deg</a>;</td></tr>
+<tr name="279" id="279">
+<td><a id="l279" class='ln'>279</a></td><td>  <a id="279c3" class="tk">lOut_Physiscal_Const_</a>[9] = <a id="279c30" class="tk">lamGNP_deg</a>;</td></tr>
+<tr name="280" id="280">
+<td><a id="l280" class='ln'>280</a></td><td></td></tr>
+<tr name="281" id="281">
+<td><a id="l281" class='ln'>281</a></td><td>  <span class="ct">/*</span></td></tr>
+<tr name="282" id="282">
+<td><a id="l282" class='ln'>282</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/NTCM_G':</span></td></tr>
+<tr name="283" id="283">
+<td><a id="l283" class='ln'>283</a></td><td><span class="ct">   *     &lt;strong&gt; FUNCTION &lt;/strong&gt;</span></td></tr>
+<tr name="284" id="284">
+<td><a id="l284" class='ln'>284</a></td><td><span class="ct">   *     The NTCM G is an empirical model that allows easy determination of global TEC.</span></td></tr>
+<tr name="285" id="285">
+<td><a id="l285" class='ln'>285</a></td><td><span class="ct">   *     The model describes the main ionospheric features with good quality using a small</span></td></tr>
+<tr name="286" id="286">
+<td><a id="l286" class='ln'>286</a></td><td><span class="ct">   *     number of model coefficients and parameters. The non-linear approach needs only 12</span></td></tr>
+<tr name="287" id="287">
+<td><a id="l287" class='ln'>287</a></td><td><span class="ct">   *     coefficients and a few empirically fixed parameters for describing the broad spectrum</span></td></tr>
+<tr name="288" id="288">
+<td><a id="l288" class='ln'>288</a></td><td><span class="ct">   *     of TEC variation for all levels of solar activity</span></td></tr>
+<tr name="289" id="289">
+<td><a id="l289" class='ln'>289</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="290" id="290">
+<td><a id="l290" class='ln'>290</a></td><td><span class="ct">   *     @param[in] brdcIonoParam		=&gt; ai0,ai1,ai2 Effective Ionisation Level parameters broadcast in the Galileo Navigation Message</span></td></tr>
+<tr name="291" id="291">
+<td><a id="l291" class='ln'>291</a></td><td><span class="ct">   *     @param[in] doy 		=&gt; Day of the Year</span></td></tr>
+<tr name="292" id="292">
+<td><a id="l292" class='ln'>292</a></td><td><span class="ct">   *     @param[in] LT 		=&gt; Local Time [hours]</span></td></tr>
+<tr name="293" id="293">
+<td><a id="l293" class='ln'>293</a></td><td><span class="ct">   *     @param[in] IppCoord 		=&gt; Pierce Point Coordinates in  Latitude[rad], Longitude[rad]</span></td></tr>
+<tr name="294" id="294">
+<td><a id="l294" class='ln'>294</a></td><td><span class="ct">   *     @param[in] NTCM_Coeff_Vect 		=&gt; NTCM model coefficients k1,k2,..,k12 (Described in Section 2.4.3)</span></td></tr>
+<tr name="295" id="295">
+<td><a id="l295" class='ln'>295</a></td><td><span class="ct">   *     @param[in] NTCM_Phys_Cons 		=&gt; Vector of Pysical Constant</span></td></tr>
+<tr name="296" id="296">
+<td><a id="l296" class='ln'>296</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="297" id="297">
+<td><a id="l297" class='ln'>297</a></td><td><span class="ct">   *     @param[out] vTEC_0 		=&gt; Total Electron Content [TECU]</span></td></tr>
+<tr name="298" id="298">
+<td><a id="l298" class='ln'>298</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="299" id="299">
+<td><a id="l299" class='ln'>299</a></td><td><span class="ct">   *  @ingroup NTCM_Procedure</span></td></tr>
+<tr name="300" id="300">
+<td><a id="l300" class='ln'>300</a></td><td><span class="ct">   *  @ingroup NTCM_G</span></td></tr>
+<tr name="301" id="301">
+<td><a id="l301" class='ln'>301</a></td><td><span class="ct">   *  @file</span></td></tr>
+<tr name="302" id="302">
+<td><a id="l302" class='ln'>302</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="303" id="303">
+<td><a id="l303" class='ln'>303</a></td><td>  <a id="303c3" class="tk">NTCM_G</a>(<a id="303c10" class="tk">&amp;</a><a id="303c11" class="tk">brdcIonoParam</a>[0], <a id="303c29" class="tk">&amp;</a><a id="303c30" class="tk">Doy</a>, <a id="303c35" class="tk">&amp;</a><a id="303c36" class="tk">lOut_LT</a>, <a id="303c45" class="tk">&amp;</a><a id="303c46" class="tk">lOut_IppCoord_</a>[0],</td></tr>
+<tr name="304" id="304">
+<td><a id="l304" class='ln'>304</a></td><td>         <a id="304c10" class="tk">&amp;</a><a id="304c11" class="tk">lOut_NTCM_Coeff_</a>[0], <a id="304c32" class="tk">&amp;</a><a id="304c33" class="tk">lOut_Physiscal_Const_</a>[0], <a id="304c59" class="tk">vTEC</a>);</td></tr>
+<tr name="305" id="305">
+<td><a id="l305" class='ln'>305</a></td><td></td></tr>
+<tr name="306" id="306">
+<td><a id="l306" class='ln'>306</a></td><td>  <span class="ct">/*</span></td></tr>
+<tr name="307" id="307">
+<td><a id="l307" class='ln'>307</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/Compute_sTEC':</span></td></tr>
+<tr name="308" id="308">
+<td><a id="l308" class='ln'>308</a></td><td><span class="ct">   *     @ingroup NTCM_Procedure</span></td></tr>
+<tr name="309" id="309">
+<td><a id="l309" class='ln'>309</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="310" id="310">
+<td><a id="l310" class='ln'>310</a></td><td><span class="ct">   *     &lt;strong&gt; FUNCTION &lt;/strong&gt;</span></td></tr>
+<tr name="311" id="311">
+<td><a id="l311" class='ln'>311</a></td><td><span class="ct">   *     This module computes the Mapping Function and converts the estimated VTEC to STEC (Described in Section 2.5.8).</span></td></tr>
+<tr name="312" id="312">
+<td><a id="l312" class='ln'>312</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="313" id="313">
+<td><a id="l313" class='ln'>313</a></td><td><span class="ct">   *     @param[in] ele_rad 		=&gt; Satellite elevation</span></td></tr>
+<tr name="314" id="314">
+<td><a id="l314" class='ln'>314</a></td><td><span class="ct">   *     @param[in] vTEC 		=&gt;  Vertical Total Electron Content [TECU]</span></td></tr>
+<tr name="315" id="315">
+<td><a id="l315" class='ln'>315</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="316" id="316">
+<td><a id="l316" class='ln'>316</a></td><td><span class="ct">   *     @param[out] sTEC 		=&gt;  Slant Total Electron Content [TECU]</span></td></tr>
+<tr name="317" id="317">
+<td><a id="l317" class='ln'>317</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="318" id="318">
+<td><a id="l318" class='ln'>318</a></td><td><span class="ct">   *  @file</span></td></tr>
+<tr name="319" id="319">
+<td><a id="l319" class='ln'>319</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="320" id="320">
+<td><a id="l320" class='ln'>320</a></td><td>  <a id="320c3" class="tk">*</a><a id="320c4" class="tk">sTEC</a> = <a id="320c11" class="tk">Compute_sTEC</a>(<a id="320c24" class="tk">lOut_El_check_out_</a>, <a id="320c44" class="tk">*</a><a id="320c45" class="tk">vTEC</a>);</td></tr>
+<tr name="321" id="321">
+<td><a id="l321" class='ln'>321</a></td><td></td></tr>
+<tr name="322" id="322">
+<td><a id="l322" class='ln'>322</a></td><td>  <span class="ct">/*</span></td></tr>
+<tr name="323" id="323">
+<td><a id="l323" class='ln'>323</a></td><td><span class="ct">   * Block description for '&lt;S4&gt;/Compute_IonoDelay':</span></td></tr>
+<tr name="324" id="324">
+<td><a id="l324" class='ln'>324</a></td><td><span class="ct">   *        @ingroup NTCM_Procedure</span></td></tr>
+<tr name="325" id="325">
+<td><a id="l325" class='ln'>325</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="326" id="326">
+<td><a id="l326" class='ln'>326</a></td><td><span class="ct">   *     &lt;strong&gt; FUNCTION &lt;/strong&gt;</span></td></tr>
+<tr name="327" id="327">
+<td><a id="l327" class='ln'>327</a></td><td><span class="ct">   *     Compute ionospheric Delay</span></td></tr>
+<tr name="328" id="328">
+<td><a id="l328" class='ln'>328</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="329" id="329">
+<td><a id="l329" class='ln'>329</a></td><td><span class="ct">   *     @param[in] sTEC		=&gt; Slant TEC</span></td></tr>
+<tr name="330" id="330">
+<td><a id="l330" class='ln'>330</a></td><td><span class="ct">   *     @param[in] fCarr		=&gt; Carrier Frequency</span></td></tr>
+<tr name="331" id="331">
+<td><a id="l331" class='ln'>331</a></td><td><span class="ct">   *     @param[out] delay_m		=&gt;ionospheric Delay[m]</span></td></tr>
+<tr name="332" id="332">
+<td><a id="l332" class='ln'>332</a></td><td><span class="ct">   *</span></td></tr>
+<tr name="333" id="333">
+<td><a id="l333" class='ln'>333</a></td><td><span class="ct">   *  @file</span></td></tr>
+<tr name="334" id="334">
+<td><a id="l334" class='ln'>334</a></td><td><span class="ct"></span></td></tr>
+<tr name="335" id="335">
+<td><a id="l335" class='ln'>335</a></td><td><span class="ct">   */</span></td></tr>
+<tr name="336" id="336">
+<td><a id="l336" class='ln'>336</a></td><td>  <a id="336c3" class="tk">*</a><a id="336c4" class="tk">delay_m</a> = <a id="336c14" class="tk">Compute_IonoDelay</a>(<a id="336c32" class="tk">*</a><a id="336c33" class="tk">sTEC</a>, <a id="336c39" class="tk">fcarr</a>);</td></tr>
+<tr name="337" id="337">
+<td><a id="l337" class='ln'>337</a></td><td><span class="br">}</span></td></tr>
+<tr name="338" id="338">
+<td><a id="l338" class='ln'>338</a></td><td></td></tr>
+<tr name="339" id="339">
+<td><a id="l339" class='ln'>339</a></td><td><span class="ct">/*</span></td></tr>
+<tr name="340" id="340">
+<td><a id="l340" class='ln'>340</a></td><td><span class="ct"> * File trailer for generated code.</span></td></tr>
+<tr name="341" id="341">
+<td><a id="l341" class='ln'>341</a></td><td><span class="ct"> *</span></td></tr>
+<tr name="342" id="342">
+<td><a id="l342" class='ln'>342</a></td><td><span class="ct"> * [EOF]</span></td></tr>
+<tr name="343" id="343">
+<td><a id="l343" class='ln'>343</a></td><td><span class="ct"> */</span></td></tr>
+<tr name="344" id="344">
+<td><a id="l344" class='ln'>344</a></td><td></td></tr>
+</table>
+</pre>
+</body>
+</html>

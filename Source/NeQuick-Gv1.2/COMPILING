@@ -1,0 +1,8 @@
+
+NeQuick source code can be compiled with any C compiler in any platform. 
+
+Beside the model itself, the test driver NeQuick_command is provided.
+
+A makefile has been provided for compilation with different standard compiler gcc. To select the compiler, change the variable COMMAND in the Makefile and adapt the OPTIONS accordingly. 
+
+Be aware of data filenames case conventions (ccir**.asc, diplats.asc and R12.dat) and also of the type of ascii representation (unix, dos, mac) for the line feed/carriage return depending on the platform. Conversions can be done with unix2dos, dos2unix commands or with emacs editor (directive set-buffer-file-eol-type).

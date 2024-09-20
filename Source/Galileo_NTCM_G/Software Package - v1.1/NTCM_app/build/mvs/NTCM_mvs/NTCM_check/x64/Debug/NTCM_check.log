@@ -1,0 +1,36 @@
+﻿  ReadWrite.c
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\aux_fun\ReadWrite.c(182,32): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\aux_fun\ReadWrite.c(74,8): warning C4101: 'buff_1': unreferenced local variable
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\aux_fun\ReadWrite.c(73,33): warning C4101: 'format_c': unreferenced local variable
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\aux_fun\ReadWrite.c(75,11): warning C4101: 'buff_2': unreferenced local variable
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\aux_fun\ReadWrite.c(335,19): warning C4473: 'fprintf' : not enough arguments passed for format string
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\aux_fun\ReadWrite.c(335,19): message : placeholders and their parameters expect 2 variadic arguments, but 1 were provided
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\aux_fun\ReadWrite.c(335,19): message : the missing variadic argument 2 is required by format string '%c'
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\aux_fun\ReadWrite.c(257,7): warning C4101: 'buff_2': unreferenced local variable
+  Check.c
+  CheckOutput.c
+  ChekInput.c
+  ComputeDoA.c
+  ComputeLocalTime.c
+  Compute_IonoDelay.c
+  Compute_sTEC.c
+  ElevetionCheck.c
+  ErrorMnG.c
+  getIonoPiercePoint.c
+  llh2xyz.c
+  llh2xyz_Rec.c
+  llh2xyz_Sat.c
+  NTCM_G.c
+  NTCM_Procedure.c
+  NTCM_Procedure_Core.c
+  rt_roundd.c
+  run_NTCM_main.c
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\run_NTCM_main.c(145,18): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\run_NTCM_main.c(152,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\run_NTCM_main.c(169,41): warning C4090: 'function': different 'const' qualifiers
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\run_NTCM_main.c(189,23): warning C4090: 'function': different 'const' qualifiers
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\run_NTCM_main.c(238,87): warning C4047: 'function': 'uint16_T *' differs in levels of indirection from 'uint16_T (*)[16]'
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\run_NTCM_main.c(238,77): warning C4024: 'NTCM_Procedure': different types for formal and actual parameter 10
+C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_src\src\run_NTCM_main.c(393,34): warning C4090: 'function': different 'const' qualifiers
+  Generating Code...
+  NTCM_check.vcxproj -> C:\Users\zurnmar\Documents\2_SW_Devops\ProvaFinaleNTCM\Software_Package\Software_Package\NTCM_app\build\mvs\NTCM_mvs\x64\Debug\NTCM_check.exe

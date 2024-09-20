@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommandArguments>1.575420000000000e+09  $(SolutionDir)..\..\..\scripts\Data\NTCM_G_Vector_Global_1_Year_High_Solar.txt $(SolutionDir)..\..\..\scripts\Out\NTCM_G_MiLvsSiL.txt </LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+</Project>

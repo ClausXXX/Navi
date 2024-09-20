@@ -1,0 +1,203 @@
+﻿  Starting remote build
+  Compiling sources:
+  ReadWrite.c
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(92,6): warning : assignment to ‘FILE **’ {aka ‘struct _IO_FILE **’} from incompatible pointer type ‘FILE *’ {aka ‘struct _IO_FILE *’} [-Wincompatible-pointer-types]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(92,6): warning :    92 |   fp = fopen(filename, "r");
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(92,6): warning :       |      ^
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(109,30): warning : passing argument 3 of ‘fgets’ from incompatible pointer type [-Wincompatible-pointer-types]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(109,30): warning :   109 |    EndOF = fgets(buff, MAXC, fp);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(109,30): warning :       |                              ^~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(109,30): warning :       |                              |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(109,30): warning :       |                              FILE ** {aka struct _IO_FILE **}
+/usr/include/stdio.h(564,14): message : expected ‘FILE * restrict’ {aka ‘struct _IO_FILE * restrict’} but argument is of type ‘FILE **’ {aka ‘struct _IO_FILE **’}
+/usr/include/stdio.h(564,14): message :   564 | extern char *fgets (char *__restrict __s, int __n, FILE *__restrict __stream)
+/usr/include/stdio.h(564,14): message :       |              ^~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(122,11): warning : implicit declaration of function ‘strtok_r’; did you mean ‘strtok’? [-Wimplicit-function-declaration]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(122,11): warning :   122 |    token= strtok_r(buff_c, delim, &next);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(122,11): warning :       |           ^~~~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(122,11): warning :       |           strtok
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(122,9): warning : assignment to ‘char *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(122,9): warning :   122 |    token= strtok_r(buff_c, delim, &next);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(122,9): warning :       |         ^
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(124,12): warning : assignment to ‘char *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(124,12): warning :   124 |    token_1 = strtok_r(format_c, "%", &next_2);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(124,12): warning :       |            ^
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(126,11): warning : passing argument 1 of ‘strcpy’ from incompatible pointer type [-Wincompatible-pointer-types]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(126,11): warning :   126 |    strcpy(&buff_1, &next);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(126,11): warning :       |           ^~~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(126,11): warning :       |           |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(126,11): warning :       |           char **
+/usr/include/string.h(122,14): message : expected ‘char * restrict’ but argument is of type ‘char **’
+/usr/include/string.h(122,14): message :   122 | extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+/usr/include/string.h(122,14): message :       |              ^~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(126,20): warning : passing argument 2 of ‘strcpy’ from incompatible pointer type [-Wincompatible-pointer-types]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(126,20): warning :   126 |    strcpy(&buff_1, &next);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(126,20): warning :       |                    ^~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(126,20): warning :       |                    |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(126,20): warning :       |                    char **
+/usr/include/string.h(122,14): message : expected ‘const char * restrict’ but argument is of type ‘char **’
+/usr/include/string.h(122,14): message :   122 | extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+/usr/include/string.h(122,14): message :       |              ^~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(127,11): warning : passing argument 1 of ‘strcpy’ from incompatible pointer type [-Wincompatible-pointer-types]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(127,11): warning :   127 |    strcpy(&buff_2, &next_2);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(127,11): warning :       |           ^~~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(127,11): warning :       |           |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(127,11): warning :       |           char **
+/usr/include/string.h(122,14): message : expected ‘char * restrict’ but argument is of type ‘char **’
+/usr/include/string.h(122,14): message :   122 | extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+/usr/include/string.h(122,14): message :       |              ^~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(127,20): warning : passing argument 2 of ‘strcpy’ from incompatible pointer type [-Wincompatible-pointer-types]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(127,20): warning :   127 |    strcpy(&buff_2, &next_2);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(127,20): warning :       |                    ^~~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(127,20): warning :       |                    |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(127,20): warning :       |                    char **
+/usr/include/string.h(122,14): message : expected ‘const char * restrict’ but argument is of type ‘char **’
+/usr/include/string.h(122,14): message :   122 | extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+/usr/include/string.h(122,14): message :       |              ^~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(160,12): warning : assignment to ‘char *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(160,12): warning :   160 |      token = strtok_r(NULL, delim, &next);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(160,12): warning :       |            ^
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(162,14): warning : assignment to ‘char *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(162,14): warning :   162 |      token_1 = strtok_r(NULL, "%",&next_2);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(162,14): warning :       |              ^
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(164,13): warning : passing argument 1 of ‘strcpy’ from incompatible pointer type [-Wincompatible-pointer-types]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(164,13): warning :   164 |      strcpy(&buff_1, &next);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(164,13): warning :       |             ^~~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(164,13): warning :       |             |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(164,13): warning :       |             char **
+/usr/include/string.h(122,14): message : expected ‘char * restrict’ but argument is of type ‘char **’
+/usr/include/string.h(122,14): message :   122 | extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+/usr/include/string.h(122,14): message :       |              ^~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(164,22): warning : passing argument 2 of ‘strcpy’ from incompatible pointer type [-Wincompatible-pointer-types]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(164,22): warning :   164 |      strcpy(&buff_1, &next);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(164,22): warning :       |                      ^~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(164,22): warning :       |                      |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(164,22): warning :       |                      char **
+/usr/include/string.h(122,14): message : expected ‘const char * restrict’ but argument is of type ‘char **’
+/usr/include/string.h(122,14): message :   122 | extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+/usr/include/string.h(122,14): message :       |              ^~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(165,13): warning : passing argument 1 of ‘strcpy’ from incompatible pointer type [-Wincompatible-pointer-types]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(165,13): warning :   165 |      strcpy(&buff_2, &next_2);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(165,13): warning :       |             ^~~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(165,13): warning :       |             |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(165,13): warning :       |             char **
+/usr/include/string.h(122,14): message : expected ‘char * restrict’ but argument is of type ‘char **’
+/usr/include/string.h(122,14): message :   122 | extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+/usr/include/string.h(122,14): message :       |              ^~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(165,22): warning : passing argument 2 of ‘strcpy’ from incompatible pointer type [-Wincompatible-pointer-types]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(165,22): warning :   165 |      strcpy(&buff_2, &next_2);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(165,22): warning :       |                      ^~~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(165,22): warning :       |                      |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(165,22): warning :       |                      char **
+/usr/include/string.h(122,14): message : expected ‘const char * restrict’ but argument is of type ‘char **’
+/usr/include/string.h(122,14): message :   122 | extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+/usr/include/string.h(122,14): message :       |              ^~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(182,32): warning : conversion from ‘double’ to ‘int’ may change value [-Wfloat-conversion]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(182,32): warning :   182 |        *(Data_I_int[i] + pp) = d1;
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(182,32): warning :       |                                ^~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(231,9): warning : passing argument 1 of ‘fclose’ from incompatible pointer type [-Wincompatible-pointer-types]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(231,9): warning :   231 |  fclose((fp));
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(231,9): warning :       |         ^~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(231,9): warning :       |         |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(231,9): warning :       |         FILE ** {aka struct _IO_FILE **}
+/usr/include/stdio.h(213,26): message : expected ‘FILE *’ {aka ‘struct _IO_FILE *’} but argument is of type ‘FILE **’ {aka ‘struct _IO_FILE **’}
+/usr/include/stdio.h(213,26): message :   213 | extern int fclose (FILE *__stream);
+/usr/include/stdio.h(213,26): message :       |                    ~~~~~~^~~~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(80,8): warning : unused variable ‘unconverted’ [-Wunused-variable]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(80,8): warning :    80 |  char* unconverted = " ";
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(80,8): warning :       |        ^~~~~~~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(296,14): warning : assignment to ‘char *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(296,14): warning :   296 |      token_1 = strtok_r(format_c, "%", &next_2);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(296,14): warning :       |              ^
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(301,14): warning : assignment to ‘char *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(301,14): warning :   301 |      token_1 = strtok_r(NULL, "%", &next_2);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(301,14): warning :       |              ^
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(261,8): warning : unused variable ‘appo’ [-Wunused-variable]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(261,8): warning :   261 |  char* appo = " ";
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(261,8): warning :       |        ^~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(257,7): warning : unused variable ‘buff_2’ [-Wunused-variable]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(257,7): warning :   257 |  char buff_2[MAXC];
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.c(257,7): warning :       |       ^~~~~~
+  Check.c
+  CheckOutput.c
+  ChekInput.c
+  ComputeDoA.c
+  ComputeLocalTime.c
+  Compute_IonoDelay.c
+  Compute_sTEC.c
+  ElevetionCheck.c
+  ErrorMnG.c
+  getIonoPiercePoint.c
+  llh2xyz.c
+  llh2xyz_Rec.c
+  llh2xyz_Sat.c
+  NTCM_G.c
+  NTCM_Procedure.c
+  NTCM_Procedure_Core.c
+  rt_roundd.c
+  run_NTCM_main.c
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(145,12): warning : conversion from ‘double’ to ‘int’ may change value [-Wfloat-conversion]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(145,12): warning :   145 |  {  Rows = strtod(argv[4], &eptr) ; }
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(145,12): warning :       |            ^~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(152,10): warning : conversion from ‘double’ to ‘int’ may change value [-Wfloat-conversion]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(152,10): warning :   152 |   Iter = strtod(argv[5], &eptr);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(152,10): warning :       |          ^~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(161,3): warning : "/*" within comment [-Wcomment]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(161,3): warning :   161 |   /* ******************************************************************/
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(161,3): warning :       |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(169,38): warning : passing argument 2 of ‘readFileDataDI’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(169,38): warning :   169 |   readRows = readFileDataDI(&fp, argv[2], Data_I_double, Data_I_int,
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(169,38): warning :       |                                  ~~~~^~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.h(24,44): message : expected ‘char *’ but argument is of type ‘const char * const’
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.h(24,44): message :    24 | extern int readFileDataDI(FILE** fp, char* filename,double Data_I_double[ENTRIES][NTCM_I_DOUBLE_dim],
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.h(24,44): message :       |                                      ~~~~~~^~~~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(177,3): warning : "/*" within comment [-Wcomment]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(177,3): warning :   177 |   /* ******************************************************************/
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(177,3): warning :       |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(189,20): warning : passing argument 1 of ‘clearFile’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(189,20): warning :   189 |      clearFile(argv[3]);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(189,20): warning :       |                ~~~~^~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.h(22,29): message : expected ‘char *’ but argument is of type ‘const char * const’
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.h(22,29): message :    22 | extern void clearFile(char* filename);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.h(22,29): message :       |                       ~~~~~~^~~~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(201,6): warning : "/*" within comment [-Wcomment]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(201,6): warning :   201 |      /* ******************************************************************/
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(201,6): warning :       |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(219,6): warning : "/*" within comment [-Wcomment]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(219,6): warning :   219 |      /* ******************************************************************/
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(219,6): warning :       |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(265,6): warning : "/*" within comment [-Wcomment]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(265,6): warning :   265 |      /* ******************************************************************/
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(265,6): warning :       |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(306,6): warning : "/*" within comment [-Wcomment]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(306,6): warning :   306 |      /* ******************************************************************/
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(306,6): warning :       |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(330,6): warning : "/*" within comment [-Wcomment]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(330,6): warning :   330 |      /* ******************************************************************/
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(330,6): warning :       |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(354,3): warning : "/*" within comment [-Wcomment]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(354,3): warning :   354 |   /* ******************************************************************/
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(354,3): warning :       |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(360,3): warning : "/*" within comment [-Wcomment]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(360,3): warning :   360 |   /* ******************************************************************/
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(360,3): warning :       |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(365,3): warning : "/*" within comment [-Wcomment]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(365,3): warning :   365 |   /* ******************************************************************/
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(365,3): warning :       |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(380,3): warning : "/*" within comment [-Wcomment]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(380,3): warning :   380 |   /* ******************************************************************/
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(380,3): warning :       |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(391,3): warning : "/*" within comment [-Wcomment]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(391,3): warning :   391 |   /* ******************************************************************/
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(391,3): warning :       |
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(393,31): warning : passing argument 1 of ‘writeFileDataDI’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(393,31): warning :   393 |   wFlag = writeFileDataDI(argv[3], "w", Data_O_double, Data_O_int, format2, NTCM_O_label, NTCM_O_dim, readRows);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(393,31): warning :       |                           ~~~~^~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.h(29,34): message : expected ‘char *’ but argument is of type ‘const char * const’
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.h(29,34): message :    29 | extern int writeFileDataDI(char* filename, char* mode, double Data_O_double[ENTRIES][NTCM_O_DOUBLE_dim],
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\aux_fun\ReadWrite.h(29,34): message :       |                            ~~~~~~^~~~~~~~
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(393,103): warning : conversion from ‘long int’ to ‘int’ may change value [-Wconversion]
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(393,103): warning :   393 |   wFlag = writeFileDataDI(argv[3], "w", Data_O_double, Data_O_int, format2, NTCM_O_label, NTCM_O_dim, readRows);
+C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_src\src\run_NTCM_main.c(393,103): warning :       |                                                                                                       ^~~~~~~~
+  Linking objects
+  run_NTCM.vcxproj -> C:\Users\zurnmar\Documents\2_SW_Devops\Software_Last\Sw_latest_08_11_2022\NTCM_app\build\gcc\NTCM_lx\\x64\Debug\run_NTCM_lx.out

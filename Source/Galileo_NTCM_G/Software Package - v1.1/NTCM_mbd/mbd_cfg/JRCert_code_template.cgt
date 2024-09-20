@@ -1,0 +1,127 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%% 
+%% 
+%%
+%% Abstract:
+%%   This is the example Embedded Coder source code template.
+%%   With this template you are able to highly customize and
+%%   manipulate the appearance of the generated code.  The template is
+%%   ideally suited for adding company information, including version
+%%   control tokens, adjusting the code's appearance, and so on.
+%%
+%%   There is a list of optional tokens that can be used to comment the
+%%   generated code.  These tokens can be used inside comment statements
+%%   anywhere throughout the template:
+%%
+%%   %<FileName>, %<FileType>, %<FileTag>, %<ModelName>, %<ModelVersion>,
+%%   %<SourceGeneratedOn>, %<TargetLang>, %<SystemTargetFile>,
+%%   %<ProdHWDeviceType>, %<EmulationHWInfo> and %<CodeGenSettings>.
+%%
+%%   The code insertion section is required. There is a list of required 
+%%   tokens that represent the components of the generated code.  You 
+%%   can manipulate this list, for example to insert other code or 
+%%   comments; it's only required that you do not remove or reorder them.
+%%   The list of expected tokens, each of which must appear on a line 
+%%   by itself, is listed below:
+%%
+%%   %<Includes>
+%%   %<Defines>
+%%   %<Types>
+%%   %<Enums>
+%%   %<Definitions>
+%%   %<Declarations>
+%%   %<Functions>
+%%
+%%   For more customization options, particularly for placing and formatting
+%%   Simulink data objects, see the Embedded Coder User's Guide.
+%%
+%% Copyright 1994-2015 The MathWorks, Inc.
+%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CGT File's Encoding (optional)
+%%   Specify what encoding the CGT file was originally writen in by uncommenting
+%%   the following tag. See web(fullfile(docroot, 'matlab/ref/fopen.html')) for
+%%   supported file encodings.
+%%
+%%   Common encodings: UTF-8, US-ASCII, Windows-1252, Shift_JIS
+%%
+%% <encodingIn="UTF-8">
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Custom file banner section (optional)
+%%
+<FileBanner style="doxygen">
+******************************************************************
+NTCMproj File: %<FileName>
+****************************************************************** 
+ @author      Francesco Menzione 
+ @reviewer    Matteo Sgammini
+ @copyright   Joint Research Centre (JRC), 2022
+ This software has been released as free and open source software
+ under the terms of the European Union Public Licence (EUPL), version 1
+ Questions? Submit your query at https://www.gsc-europa.eu/contact-us/helpdesk
+ @ingroup NTCM_Procedure
+******************************************************************
+Code generated for Simulink model '%<ModelName>'.
+Model version                  : %<ModelVersion>
+Simulink Coder version         : %<RTWFileVersion>
+C/C++ source code generated on : %<SourceGeneratedOn>
+%<CodeGenSettings>
+@file
+
+</FileBanner>
+
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Custom function banner section (optional)
+%%   Customize function banners by using the following predefined tokens: 
+%% %<ModelName>, %<FunctionName>, %<FunctionDescription>, %<Arguments>, 
+%% %<ReturnType>, %<GeneratedFor>, %<BlockDescription>. 
+%%
+<FunctionBanner style="doxygen">
+******************************************************************
+%<FunctionName>
+%<FunctionDescription>
+******************************************************************
+Arguments    : %<Arguments>
+******************************************************************
+Return Type  : %<ReturnType>
+******************************************************************
+%<BlockDescription>
+******************************************************************
+</FunctionBanner>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Custom shared utility function banner section (optional)
+%%   Customize banners for functions generated in shared location by using the 
+%% following predefined tokens: %<FunctionName>, %<FunctionDescription>, 
+%% %<Arguments>, %<ReturnType>.
+%% 
+<SharedUtilityBanner style="classic">
+%<FunctionDescription>
+</SharedUtilityBanner>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Code insertion section (required)
+%%   These are required tokens. You can insert comments and other tokens in 
+%% between them, but do not change their order or remove them.
+%%
+%<Includes>
+%<Defines>
+%<Types>
+%<Enums>
+%<Definitions>
+%<Declarations>
+%<Functions>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Custom file trailer section (optional)
+%%
+<FileTrailer style="classic">
+File trailer for generated code.
+
+[EOF]
+</FileTrailer>

@@ -1,0 +1,28 @@
+v 1.1 	(2017-09-28): Az is calculated only from receiver location. Az bounds (0 and 400) are checked.
+						directive NEQ_USE_SEPARATE_COEFF removed in NeQuick_command, performtest calls NeQuick.c 
+						with 3 Az coefficients; calculation of Modip performed with NeqCalcModip in NeqCalcEpsParams.c
+						Clean headers, remove unnecessary files.
+
+V 1.0.4 (2012-09-05): Statement in documentation that input coordinates for stations and satellites are 
+	expexted in WGS-84 ellipsoidal reference frame (geodetic latitude, geodetic longitude and ellipsoidal height)
+	(related comments included in: NeQuick.c, NeQTypes.h, Input_data/FORMAT, Output_data/FORMAT, 
+	Examples/NeQuick_command_usage_examples.pdf).
+	No changes in software but only in documentation.
+
+V 1.0.3 (2012-07-23): Output validation filenames do not include years but a character code of 3 characters 
+	instead (hig, med, low).
+	Year is removed from input/output validation files and different usage modes including changes in 
+	NeQuick_command.c accordingly.
+	Comments on NeQuick details and authors of this version and original ITU-R source code 
+	were included in README and NeQuick.c
+
+V 1.0.2 (2012-04-16): Change in Examples\NeQuick_command_usage_examples.pdf option -c where the 
+	parameter <year> had been mistakenly included in the help document whereas not included in the software.
+
+V 1.0.1 (2011-06-16): Incorporates the sample test driver NeQuick_command including various 
+	methods for running NeQuick and estimateint sTEC and replacing NeQGalTest .
+	Includes files README, COMPILING, CHANGELOG, Examples/NeQuick_command_usage_examples.pdf and 
+	directory Examples/ with a number of example files.
+	
+NeQuick Galileo C version 1.0 (2010-10-23): 
+	First ESA Galileo release version of NeQuick model for Single Frequency ionospheric correction algorithm.
