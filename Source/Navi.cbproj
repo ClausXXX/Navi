@@ -3,7 +3,7 @@
         <ProjectGuid>{8524381E-97B8-4FA6-A738-BF6A2CB0D1AE}</ProjectGuid>
         <ProjectVersion>19.5</ProjectVersion>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <AppType>Console</AppType>
         <FrameworkType>None</FrameworkType>
         <TargetedPlatforms>3</TargetedPlatforms>
@@ -114,8 +114,9 @@
         <Manifest_File>None</Manifest_File>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Defines>NDEBUG;$(Defines)</Defines>
-        <VerInfo_Keys>CompanyName=;FileDescription=Программа решения навигационной задачи ГНСС;FileVersion=1.0.0.0;InternalName=;LegalCopyright=© Затолокин Д.А., 2015-2021;LegalTrademarks=;OriginalFilename=;ProductName=Navi;ProductVersion=1.0.0.0;Comments=clausxxx@rambler.ru</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileDescription=Программа решения навигационной задачи ГНСС;FileVersion=1.2.0.0;InternalName=;LegalCopyright=© Затолокин Д.А., 2015-2024;LegalTrademarks=;OriginalFilename=;ProductName=Navi;ProductVersion=1.2.0.0;Comments=clausxxx@rambler.ru</VerInfo_Keys>
         <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
+        <VerInfo_MinorVer>2</VerInfo_MinorVer>
     </PropertyGroup>
     <ItemGroup>
         <CppCompile Include="Common.c">
